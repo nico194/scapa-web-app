@@ -1,0 +1,23 @@
+.navbar-component .portada {
+    width: 100%;
+    height: 300px;
+}
+
+.navbar-component .logo {
+    height: 100px;
+}
+
+.navbar-component .nav {
+    display: flex;
+    justify-content: space-around;
+    background: aqua
+}
+
+.navbar-component .nav .links{
+    display: flex;
+    list-style: none;
+}
+
+.navbar-component .nav .links li{
+    padding-left: 10px;
+}
