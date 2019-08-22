@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './SignIn.css'
 import TextField from '../../components/atoms/textfield/TextField';
 import Button from '../../components/atoms/button/Button';
+import Link from '../../components/atoms/link/Link';
 class SignIn extends Component {
     constructor(props) {
         super(props);
@@ -9,7 +10,8 @@ class SignIn extends Component {
         this.state = {
             email: '',
             password: '',
-            signIn: false
+            signIn: false,
+            loading: false
         }
         this.onChangeTextField = this.onChangeTextField.bind();
         this.onClickLogin = this.onClickLogin.bind();
@@ -20,6 +22,7 @@ class SignIn extends Component {
     }
 
     onClickLogin = () => {
+        this.setState({loading: true})
         const user = {
             email: this.state.email,
             password: this.state.password,
@@ -35,23 +38,32 @@ class SignIn extends Component {
                 }
             )
             .then( response => {
-                response.ok ? this.setState({signIn: true}) : console.log('error')
+                response.ok ? this.setState({loading: false, signIn: true}) : console.log('error')
             })
             .catch( err => {throw err;});
 
     }
 
     render() {
-        const { signIn } = this.state;
+        const { signIn, loading } = this.state;
         return (
             <div className="sign-in-component">
-                <h1>SignIn</h1>
-                <TextField text='Email' onChange={(e) => {this.onChangeTextField(e, 'email')}} placeholder='Ingrese su email...'/>
-                <TextField text='Password' onChange={(e) => {this.onChangeTextField(e, 'password')}} placeholder='Ingrese su password...'/>
-                <Button text='Ingresar' onClick={this.onClickLogin}/>
-                {signIn && 
-                    <h2>Login Exitoso!</h2>
-                }
+                <div className="wrapper-sign-in">
+                    <h1>SignIn</h1>
+                    <TextField text='Email: ' onChange={(e) => {this.onChangeTextField(e, 'email')}} placeholder='Ingrese su email...'/>
+                    <br/>
+                    <TextField text='Password: ' onChange={(e) => {this.onChangeTextField(e, 'password')}} placeholder='Ingrese su password...'/>
+                    <br/>
+                    <Button text='Ingresar' onClick={this.onClickLogin}/>
+                    <br/>
+                    <span>No tienes cuenta <Link text='Resgistrate aquí' goTo='/signup'/></span>
+                    {loading && 
+                        <h2>Cargando...</h2>
+                    }
+                    {signIn && 
+                        <h2>Login Exitoso!</h2>
+                    }
+                </div>
             </div>
         )
     }

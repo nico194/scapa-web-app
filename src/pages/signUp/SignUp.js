@@ -11,7 +11,8 @@ class SignUp extends Component {
             email: '',
             password: '',
             name: '',
-            signUp: false
+            signUp: false,
+            loading: false
         }
         this.onChangeTextField = this.onChangeTextField.bind();
         this.onClickLogin = this.onClickLogin.bind();
@@ -22,6 +23,7 @@ class SignUp extends Component {
     }
 
     onClickLogin = () => {
+        this.setState({loading: true});
         const user = {
             email: this.state.email,
             password: this.state.password,
@@ -44,17 +46,25 @@ class SignUp extends Component {
     }
 
     render() {
-        const { signUp } = this.state;
+        const { signUp, loading } = this.state;
         return (
             <div className="sign-up-component">
-                <h1>SignUp</h1>
-                <TextField text='Email' onChange={(e) => {this.onChangeTextField(e, 'email')}} placeholder='Ingrese su email...'/>
-                <TextField text='Password' onChange={(e) => {this.onChangeTextField(e, 'password')}} placeholder='Ingrese su password...'/>
-                <TextField text='Nombre' onChange={(e) => {this.onChangeTextField(e, 'name')}} placeholder='Ingrese su nombre...'/>
-                <Button text='Registrarse' onClick={this.onClickLogin}/>
-                {signUp && 
-                    <h2>SignUp Exitoso!</h2>
-                }
+                <div className="wrapper-sign-up">
+                    <h1>SignUp</h1>
+                    <TextField text='Email: ' onChange={(e) => {this.onChangeTextField(e, 'email')}} placeholder='Ingrese su email...'/>
+                    <br/>
+                    <TextField text='Password: ' onChange={(e) => {this.onChangeTextField(e, 'password')}} placeholder='Ingrese su password...'/>
+                    <br/>
+                    <TextField text='Nombre: ' onChange={(e) => {this.onChangeTextField(e, 'name')}} placeholder='Ingrese su nombre...'/>
+                    <br/>
+                    <Button text='Registrarse' onClick={this.onClickLogin}/>
+                    {loading && 
+                        <h2>Cargando...</h2>
+                    }
+                    {signUp && 
+                        <h2>SignUp Exitoso!</h2>
+                    }
+                </div>
             </div>
         )
     }
