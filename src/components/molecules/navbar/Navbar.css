@@ -4,20 +4,35 @@
 }
 
 .navbar-component .logo {
-    height: 100px;
+    height: 54px;
 }
 
 .navbar-component .nav {
-    display: flex;
-    justify-content: space-around;
-    background: aqua
+    padding: 0 50px;
 }
 
-.navbar-component .nav .links{
+.navbar-component .nav .left-content, .navbar-component .nav .right-content {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+}
+
+.navbar-component .nav .left-content .links, .navbar-component .nav .right-content .links{
     display: flex;
     list-style: none;
+    padding-left: 0;
+    
 }
 
-.navbar-component .nav .links li{
-    padding-left: 10px;
+.navbar-component .nav .left-content .links li, .navbar-component .nav .right-content .links li{
+    padding-left: 20px;
+}
+
+.navbar-component .nav .left-content {
+    float: left;
+}
+
+.navbar-component .nav .right-content {
+    float: right;
 }

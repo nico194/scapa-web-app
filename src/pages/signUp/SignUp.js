@@ -1,15 +1,16 @@
-import React, { Component } from 'react'
-import './SignIn.css'
+import React, { Component } from 'react';
 import TextField from '../../components/atoms/textfield/TextField';
 import Button from '../../components/atoms/button/Button';
-class SignIn extends Component {
+import './SignUp.css';
+
+class SignUp extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             email: '',
             password: '',
-            login: false
+            signUp: false
         }
         this.onChangeTextField = this.onChangeTextField.bind();
         this.onClickLogin = this.onClickLogin.bind();
@@ -26,19 +27,20 @@ class SignIn extends Component {
     }
 
     render() {
-        const { login } = this.state;
+        const { signUp } = this.state;
         return (
-            <div className="sign-in-component">
-                <h1>SignIn</h1>
+            <div className="sign-up-component">
+                <h1>SignUp</h1>
                 <TextField text='Email' onChange={(e) => {this.onChangeTextField(e, 'email')}} placeholder='Ingrese su email...'/>
                 <TextField text='Password' onChange={(e) => {this.onChangeTextField(e, 'password')}} placeholder='Ingrese su password...'/>
-                <Button text='Ingresar' onClick={this.onClickLogin}/>
-                {login && 
-                    <h2>Login Exitoso!</h2>
+                <TextField text='Nombre' onChange={(e) => {this.onChangeTextField(e, 'password')}} placeholder='Ingrese su nombre...'/>
+                <Button text='Registrarse' onClick={this.onClickLogin}/>
+                {signUp && 
+                    <h2>SignUp Exitoso!</h2>
                 }
             </div>
         )
     }
 }
 
-export default SignIn
+export default SignUp

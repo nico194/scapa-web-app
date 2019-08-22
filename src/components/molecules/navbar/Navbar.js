@@ -11,11 +11,18 @@ class Navbar extends Component {
             <div className='navbar-component'>
                 <Image className='portada' src={Portada} alt='portada'/>
                 <div className="nav">
-                    <Image className='logo' src={Logo} alt='logo'/>
-                    <ul className='links'>
-                        <li><Link goTo='/' text='Home'/></li>
-                        <li><Link goTo='/signin' text='Sign In'/></li>
-                    </ul>
+                    <div className="left-content">
+                        <Image className='logo' src={Logo} alt='logo'/>
+                        <ul className='links'>
+                            <li><Link goTo='/' text='SCAPA'/></li>
+                        </ul>
+                    </div>
+                    <div className="right-content">
+                        <ul className='links'>
+                            <li><Link goTo='/signin' text='Sign In'/></li>
+                            <li><Link goTo='/signup' text='Sign Up'/></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         )
