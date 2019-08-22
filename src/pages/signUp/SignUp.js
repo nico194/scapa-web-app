@@ -10,6 +10,7 @@ class SignUp extends Component {
         this.state = {
             email: '',
             password: '',
+            name: '',
             signUp: false
         }
         this.onChangeTextField = this.onChangeTextField.bind();
@@ -17,12 +18,28 @@ class SignUp extends Component {
     }
 
     onChangeTextField = (e, field) => {
-        console.log(`${field}: ${e.target.value}`)
         this.setState({ [field] : e.target.value })
     }
 
     onClickLogin = () => {
-        
+        const user = {
+            email: this.state.email,
+            password: this.state.password,
+            name: this.state.name
+        };
+        console.log(JSON.stringify(user));
+        fetch("http://10.170.10.50:8000/tutors/signup", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(user)
+                }
+            )
+            .then( response => {
+                response.ok ? this.setState({signUp: true}) : console.log('error')
+            })
+            .catch( err => {throw err;});
 
     }
 
@@ -33,7 +50,7 @@ class SignUp extends Component {
                 <h1>SignUp</h1>
                 <TextField text='Email' onChange={(e) => {this.onChangeTextField(e, 'email')}} placeholder='Ingrese su email...'/>
                 <TextField text='Password' onChange={(e) => {this.onChangeTextField(e, 'password')}} placeholder='Ingrese su password...'/>
-                <TextField text='Nombre' onChange={(e) => {this.onChangeTextField(e, 'password')}} placeholder='Ingrese su nombre...'/>
+                <TextField text='Nombre' onChange={(e) => {this.onChangeTextField(e, 'name')}} placeholder='Ingrese su nombre...'/>
                 <Button text='Registrarse' onClick={this.onClickLogin}/>
                 {signUp && 
                     <h2>SignUp Exitoso!</h2>
