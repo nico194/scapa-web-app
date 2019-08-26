@@ -6,6 +6,8 @@ import * as serviceWorker from './serviceWorker';
 import Home from './pages/home/Home';
 import SignIn from './pages/signIn/SignIn';
 import SignUp from './pages/signUp/SignUp';
+import TutorPage from './pages/tutorPage/TutorPage';
+
 
 const App = () => {
     return(
@@ -14,6 +16,7 @@ const App = () => {
                 <Route path="/" exact component={Home}/>
                 <Route path="/signin" component={SignIn}/>
                 <Route path="/signup" component={SignUp}/>
+                <Route path="/main" component={TutorPage} />
             </React.Fragment>
         </BrowserRouter>
     )

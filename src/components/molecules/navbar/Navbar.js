@@ -7,6 +7,15 @@ import './Navbar.css';
 
 class Navbar extends Component {
     render() {
+        const { leftLinks, rightLinks } = this.props;
+
+        const linkLeft = leftLinks.map((link, index) => {
+            return <li><Link key={index} goTo={link.goTo} text={link.text} /></li>
+        }) 
+        const linkRight = rightLinks.map((link, index) => {
+            return <li><Link key={index} goTo={link.goTo} text={link.text} /></li>
+        })
+
         return (
             <div className='navbar-component'>
                 <Image className='portada' src={Portada} alt='portada'/>
@@ -14,13 +23,12 @@ class Navbar extends Component {
                     <div className="left-content">
                         <Image className='logo' src={Logo} alt='logo'/>
                         <ul className='links'>
-                            <li><Link goTo='/' text='SCAPA'/></li>
+                            {linkLeft}
                         </ul>
                     </div>
                     <div className="right-content">
                         <ul className='links'>
-                            <li><Link goTo='/signin' text='Sign In'/></li>
-                            <li><Link goTo='/signup' text='Sign Up'/></li>
+                            {linkRight}
                         </ul>
                     </div>
                 </div>
