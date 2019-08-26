@@ -1,37 +1,14 @@
 import React, { Component } from 'react';
 import Navbar from '../../components/molecules/navbar/Navbar';
+import config from '../../config';
 
 class TutorPage extends Component {
     render() {
-        const linksLeft = [
-            {
-                goTo: '#',
-                text: 'Pacientes'
-            },
-            {
-                goTo: '#',
-                text: 'Rutinas'
-            },
-            {
-                goTo: '#',
-                text: 'Solicitudes Pendientes'
-            }
-        ]
-
-        const linksRight = [
-            {
-                goTo: '#',
-                text: 'Nombre Tutor'
-            },
-            {
-                goTo: '#',
-                text: 'Salir'
-            }
-        ]
+        const {tutorNavbarLeft , tutorNavbarRight} = config;
 
         return (
             <div className="tutor-page">
-                <Navbar leftLinks={linksLeft} rightLinks={linksRight}/>
+                <Navbar leftLinks={tutorNavbarLeft} rightLinks={tutorNavbarRight}/>
             </div>
         )
     }

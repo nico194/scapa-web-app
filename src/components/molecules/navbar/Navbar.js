@@ -7,7 +7,7 @@ import './Navbar.css';
 
 class Navbar extends Component {
     render() {
-        const { leftLinks, rightLinks } = this.props;
+        const { leftLinks, rightLinks, admin = true } = this.props;
 
         const linkLeft = leftLinks.map((link, index) => {
             return <li><Link key={index} goTo={link.goTo} text={link.text} /></li>
@@ -18,7 +18,9 @@ class Navbar extends Component {
 
         return (
             <div className='navbar-component'>
-                <Image className='portada' src={Portada} alt='portada'/>
+                { admin &&
+                    <Image className='portada' src={Portada} alt='portada'/>
+                }
                 <div className="nav">
                     <div className="left-content">
                         <Image className='logo' src={Logo} alt='logo'/>

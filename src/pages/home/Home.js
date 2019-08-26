@@ -1,29 +1,13 @@
 import React, { Component } from 'react';
 import Navbar from '../../components/molecules/navbar/Navbar';
+import config from '../../config';
 
 class Home extends Component {
     render() {
-        const linksLeft = [
-            {
-                goTo: '/',
-                text: 'SCAPA'
-            }
-        ]
-
-        const linksRight = [
-            {
-                goTo: '/signin',
-                text: 'Login'
-            },
-            {
-                goTo: '/signup',
-                text: 'Resistrarse'
-            }
-        ]
-
+        const { homeNavbarLeft , homeNavbarRight} = config;
         return (
             <div className="home-page">
-                <Navbar leftLinks={linksLeft} rightLinks={linksRight}/>
+                <Navbar leftLinks={homeNavbarLeft} rightLinks={homeNavbarRight}/>
             </div>
         )
     }

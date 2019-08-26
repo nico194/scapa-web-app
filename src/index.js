@@ -7,7 +7,7 @@ import Home from './pages/home/Home';
 import SignIn from './pages/signIn/SignIn';
 import SignUp from './pages/signUp/SignUp';
 import TutorPage from './pages/tutorPage/TutorPage';
-
+import CategoriesPage from './pages/categories/CategoriesPage';
 
 const App = () => {
     return(
@@ -17,6 +17,8 @@ const App = () => {
                 <Route path="/signin" component={SignIn}/>
                 <Route path="/signup" component={SignUp}/>
                 <Route path="/main" component={TutorPage} />
+                <Route path="/categories" component={CategoriesPage} />
+                <Route path="/pictograms" component={CategoriesPage} />
             </React.Fragment>
         </BrowserRouter>
     )

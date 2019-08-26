@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
-import './SignIn.css'
+import React, { Component } from 'react';
+import './SignIn.css';
+import config from '../../config';
 import TextField from '../../components/atoms/textfield/TextField';
 import Button from '../../components/atoms/button/Button';
 import Link from '../../components/atoms/link/Link';
@@ -24,14 +25,13 @@ class SignIn extends Component {
     }
 
     onClickLogin = () => {
-        this.setState({loading: true})
+        this.setState({loading: true});
         const user = {
             email: this.state.email,
             password: this.state.password,
             name: this.state.name
         };
-        console.log(JSON.stringify(user));
-        fetch("http://10.170.10.50:8000/tutors/signIn", {
+        fetch(`${config.ip}/tutors/signIn`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -62,8 +62,11 @@ class SignIn extends Component {
                     {loading && 
                         <h2>Cargando...</h2>
                     }
-                    {signIn && 
+                    {signIn &&
                         <Redirect to="/main" />
+                    }
+                    {signIn && this.state.email === 'admin' ?
+                        <Redirect to="/categories" /> : ''
                     }
                 </div>
             </div>

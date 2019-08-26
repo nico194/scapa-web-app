@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import config from '../../config';
 import TextField from '../../components/atoms/textfield/TextField';
 import Button from '../../components/atoms/button/Button';
 import './SignUp.css';
@@ -29,8 +30,7 @@ class SignUp extends Component {
             password: this.state.password,
             name: this.state.name
         };
-        console.log(JSON.stringify(user));
-        fetch("http://10.170.10.50:8000/tutors/signup", {
+        fetch(`${config.ip}/tutors/signup`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
