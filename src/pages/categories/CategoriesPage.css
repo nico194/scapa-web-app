@@ -1,0 +1,9 @@
+.categories-page {
+    display: flex;
+    flex-direction: column;
+}
+
+.categories-component {
+    margin-top: 50px;
+    margin-left: 30px;
+}

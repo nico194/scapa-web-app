@@ -10,10 +10,10 @@ class Navbar extends Component {
         const { leftLinks, rightLinks, admin = true } = this.props;
 
         const linkLeft = leftLinks.map((link, index) => {
-            return <li><Link key={index} goTo={link.goTo} text={link.text} /></li>
+            return <li key={index}><Link goTo={link.goTo} text={link.text} /></li>
         }) 
         const linkRight = rightLinks.map((link, index) => {
-            return <li><Link key={index} goTo={link.goTo} text={link.text} /></li>
+            return <li key={index}><Link goTo={link.goTo} text={link.text} /></li>
         })
 
         return (

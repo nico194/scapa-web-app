@@ -1,5 +1,5 @@
 const config = {
-    ip: 'http://10.170.10.50:8000', //''
+    ip: 'http://localhost:8000', //'http://10.170.10.50:8000',
     homeNavbarLeft: [
         {
             goTo: '/',

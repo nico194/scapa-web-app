@@ -1,0 +1,4 @@
+.categories-component {
+    display: flex;
+    flex-direction: column;
+}
