@@ -11,26 +11,39 @@ class Categories extends Component {
         this.state = {
             categories: [],
             add : false,
-            newCategory: ''
+            edit: false,
+            newCategory: '',
+            editCategory: {}
         }
+        this.showCategories = this.showCategories.bind();
         this.showAddCategory = this.showAddCategory.bind();
         this.onChangeCategoryName = this.onChangeCategoryName.bind();
+        this.addCategory = this.addCategory.bind()
+        this.deleteCategory = this.deleteCategory.bind()
+        this.updateCategory = this.updateCategory.bind()
     }
-    componentDidMount(){
+
+    showCategories = () => {
         fetch(`${config.ip}/categories`)
             .then(response => {
                         return response.json()
                     }
                 )
-            .then(categories => {
-                    this.setState({categories: categories})                    
-                }
-            )
+            .then(categories => {this.setState({categories: categories})})
             .catch(error => { throw error});
+    }
+
+    componentDidMount(){
+        this.showCategories();
     }
 
     showAddCategory = () => {
         this.setState({add: !this.state.add})
+    }
+
+    showEditCategory = (category) => {
+        this.setState({editCategory: category});
+        this.setState({edit: !this.state.edit})
     }
 
     onChangeCategoryName = (e) => {
@@ -38,35 +51,102 @@ class Categories extends Component {
     }
     
     addCategory = () => {
-        console.log('click');
-        const category = { description : this.state.newCategory}
+        const category = { description : this.state.newCategory }
         fetch(`${config.ip}/categories`, {
             method: 'POST',
-            header: {
+            headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(category)
         })
-        .then(response => response.json())
-        .then(add => {
-            console.log('Se agrego: ', add);
+        .then(response => { return response.json(); })
+        .then(data => {
+                if(data.insert === 'success') {
+                    let categories = this.state.categories;
+                    categories.push({id: data.id, description: this.state.newCategory});
+                    this.setState({categories: categories});
+                } else {
+                    console.log('error');
+                }
+            }
+        )
+        .catch(error => { throw error});
+    }
+
+    deleteCategory = (category) => {
+        console.log('Category before: ', this.state.categories);
+        const cat = category;
+        fetch(`${config.ip}/categories/${category.id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
         })
+        .then(response => {
+                return response.json();
+            }
+        )
+        .then(data => {
+                if(data.delete === 'success'){
+                    let categories = this.state.categories;
+                    for(let i = 0; i < categories.length; i++){
+                        if(categories[i].id === cat.id) {
+                            console.log('index: ', i)
+                            const element = categories.splice(i, 1);
+                            console.log(element)
+                        }
+                    }
+                    console.log('Category after: ', categories);
+                    this.setState({categories: categories});
+                } else {
+                    console.log('error');
+                }
+            }
+        )
+        .catch(error => { throw error });
+    }
+    
+    updateCategory = () => {
+        const editCategory = this.state.editCategory;
+        fetch(`${config.ip}/categories/${editCategory.id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(editCategory)
+        })
+        .then(response => {
+                return response.json();
+            }
+        )
+        .then(data => {
+                if(data.update === 'success') {
+                    let categories = this.state.categories;
+                    categories.forEach( category => {
+                        if(category.id === editCategory.id){
+                            category.description = this.state.newCategory
+                        }
+                    })
+                    this.setState({categories: categories});
+                }
+            }
+        )
         .catch(error => { throw error});
     }
 
     render() {
         const { list } = this.props;
-        const { categories, add, newCategory } = this.state;
-        const listCategories = categories.map((category, index) =>{
+        const { categories, add, newCategory, edit } = this.state;
+        const listCategories = categories.map(category =>{
             if(list) {
-                return <li key={index}><Category description={category.description} list={list}/></li>
+                return <li key={category.id}><Category description={category.description} list={list}/></li>
                 
             } else {
                 return (
-                    <tr key={index}>
+                    <tr key={category.id}>
                         <td>{category.description}</td>
-                        <td><i className="fas fa-trash-alt"></i></td>
-                        <td><i className="fas fa-edit"></i></td>
+                        <td><i className="fas fa-trash-alt" onClick={() => this.deleteCategory(category)}></i></td>
+                        <td><i className="fas fa-edit" onClick={() => this.showEditCategory(category)}></i></td>
                     </tr>
                 )
             } 
@@ -84,7 +164,7 @@ class Categories extends Component {
                             <thead>
                                 <tr>
                                     <th>Categorias</th>
-                                </tr>                            
+                                </tr>
                             </thead>
                             <tbody>
                                 {listCategories}
@@ -101,8 +181,14 @@ class Categories extends Component {
                         <Button text='Agregar' onClick={this.addCategory} />
                     </div>
                 }
-                
-                
+                {edit &&
+                    <div>
+                        <h1>Edit</h1>
+                        <TextField text='Nuevo nombre de la categoria:  ' onChange={this.onChangeCategoryName} />
+                        {newCategory}
+                        <Button text='Modificar' onClick={() => this.updateCategory()} />
+                    </div>
+                }
             </div>
         )
     }

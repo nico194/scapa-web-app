@@ -39,9 +39,8 @@ class SignIn extends Component {
                     body: JSON.stringify(user)
                 }
             )
-            .then( response => {
-                response.ok ? this.setState({loading: false, signIn: true}) : console.log('error')
-            })
+            .then( response => { return response.json()})
+            .then( data => data.token && this.setState({ signIn: true, loading: false}))
             .catch( err => {throw err;});
 
     }
