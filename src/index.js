@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Provider } from 'react-redux';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
+import store from './redux/store';
 import Home from './pages/home/Home';
 import SignIn from './pages/signIn/SignIn';
 import SignUp from './pages/signUp/SignUp';
@@ -11,16 +13,18 @@ import CategoriesPage from './pages/categories/CategoriesPage';
 
 const App = () => {
     return(
-        <BrowserRouter>
-            <React.Fragment>
-                <Route path="/" exact component={Home}/>
-                <Route path="/signin" component={SignIn}/>
-                <Route path="/signup" component={SignUp}/>
-                <Route path="/main" component={TutorPage} />
-                <Route path="/categories" component={CategoriesPage} />
-                <Route path="/pictograms" component={CategoriesPage} />
-            </React.Fragment>
-        </BrowserRouter>
+        <Provider store={store}>
+            <BrowserRouter>
+                <Switch>
+                    <Route path="/" exact component={Home}/>
+                    <Route path="/signin" component={SignIn}/>
+                    <Route path="/signup" component={SignUp}/>
+                    <Route path="/main" component={TutorPage} />
+                    <Route path="/categories" component={CategoriesPage} />
+                    <Route path="/pictograms" component={CategoriesPage} />
+                </Switch>
+            </BrowserRouter>
+        </Provider>
     )
 }
 

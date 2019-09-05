@@ -3,7 +3,7 @@ import Category from '../../molecules/category/Category';
 import Button from '../../atoms/button/Button';
 import TextField from '../../atoms/textfield/TextField';
 import config from '../../../config';
-import './Categories';
+import './Categories.css';
 
 class Categories extends Component {
     constructor(props){
@@ -15,7 +15,7 @@ class Categories extends Component {
             newCategory: '',
             editCategory: {}
         }
-        this.showCategories = this.showCategories.bind();
+
         this.showAddCategory = this.showAddCategory.bind();
         this.onChangeCategoryName = this.onChangeCategoryName.bind();
         this.addCategory = this.addCategory.bind()
@@ -23,7 +23,7 @@ class Categories extends Component {
         this.updateCategory = this.updateCategory.bind()
     }
 
-    showCategories = () => {
+    componentDidMount(){
         fetch(`${config.ip}/categories`)
             .then(response => {
                         return response.json()
@@ -33,17 +33,12 @@ class Categories extends Component {
             .catch(error => { throw error});
     }
 
-    componentDidMount(){
-        this.showCategories();
-    }
-
     showAddCategory = () => {
-        this.setState({add: !this.state.add})
+        this.setState({add: !this.state.add, edit: false})
     }
 
     showEditCategory = (category) => {
-        this.setState({editCategory: category});
-        this.setState({edit: !this.state.edit})
+        this.setState({edit: true, editCategory: category, add: false});
     }
 
     onChangeCategoryName = (e) => {
@@ -64,7 +59,7 @@ class Categories extends Component {
                 if(data.insert === 'success') {
                     let categories = this.state.categories;
                     categories.push({id: data.id, description: this.state.newCategory});
-                    this.setState({categories: categories});
+                    this.setState({newCategory: '' , categories: categories, add: false});
                 } else {
                     console.log('error');
                 }
@@ -127,7 +122,7 @@ class Categories extends Component {
                             category.description = this.state.newCategory
                         }
                     })
-                    this.setState({categories: categories});
+                    this.setState({editCategory: {}, newCategory:'', edit: false, categories: categories});
                 }
             }
         )
@@ -136,57 +131,57 @@ class Categories extends Component {
 
     render() {
         const { list } = this.props;
-        const { categories, add, newCategory, edit } = this.state;
+        const { categories, add, edit, editCategory } = this.state;
         const listCategories = categories.map(category =>{
             if(list) {
                 return <li key={category.id}><Category description={category.description} list={list}/></li>
-                
             } else {
                 return (
                     <tr key={category.id}>
                         <td>{category.description}</td>
-                        <td><i className="fas fa-trash-alt" onClick={() => this.deleteCategory(category)}></i></td>
-                        <td><i className="fas fa-edit" onClick={() => this.showEditCategory(category)}></i></td>
+                        <td><Button onClick={() => this.deleteCategory(category)}/></td>
+                        <td><Button  onClick={() => this.showEditCategory(category)}/></td>
                     </tr>
                 )
-            } 
+            }
         })
-        
         return (
-            <div className="categories-component">
-                <div className="list-categories">
-                    {list ?
+            <div className='categories-component'>
+                {list ?
+                    <div className='categories-list'>
                         <ul>
                             {listCategories}
                         </ul>
-                        :
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Categorias</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {listCategories}
-                            </tbody>
-                        </table>
-                    }
-                    <Button className='primary' text='Agregar Categoria' onClick={this.showAddCategory} />
-                </div>
-                {add &&
-                    <div>
-                        <h1>Add</h1>
-                        <TextField text='Nombre de la categoria:  ' onChange={this.onChangeCategoryName} />
-                        {newCategory}
-                        <Button text='Agregar' onClick={this.addCategory} />
                     </div>
-                }
-                {edit &&
-                    <div>
-                        <h1>Edit</h1>
-                        <TextField text='Nuevo nombre de la categoria:  ' onChange={this.onChangeCategoryName} />
-                        {newCategory}
-                        <Button text='Modificar' onClick={() => this.updateCategory()} />
+                    :
+                    <div className='categories-table'>
+                        <div className='table'>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Categorias</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {listCategories}
+                                </tbody>
+                            </table>
+                            <Button text='Agregar Categoria' onClick={this.showAddCategory} />
+                        </div>
+                        {add &&
+                            <div className='category'>
+                                <h1>Add Category:</h1>
+                                <TextField id='txtAdd' text='Nombre de la categoria:  ' onChange={this.onChangeCategoryName} />
+                                <Button text='Agregar' onClick={this.addCategory} />
+                            </div>
+                        }
+                        {edit &&
+                            <div className='category'>
+                                <h1>Edit Category: {editCategory.description}</h1>
+                                <TextField id='txtEdit' text='Nuevo nombre de la categoria:  ' onChange={this.onChangeCategoryName}/>
+                                <Button text='Modificar' onClick={() => this.updateCategory()} />
+                            </div>
+                        }
                     </div>
                 }
             </div>
