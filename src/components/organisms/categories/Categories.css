@@ -2,6 +2,15 @@
     margin: 10px 50px;
 }
 
+.categories-component .list {
+    list-style: none;
+    display: flex;
+}
+
+.categories-component .list li {
+    padding-left: 10px;
+}
+
 .categories-table .table {
     width: 50%;
     float: left;

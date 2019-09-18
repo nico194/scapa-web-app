@@ -1,22 +1,21 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { getCategories, addCategory, deleteCategory, updateCategory } from '../../../redux/actions/categories'
 import Category from '../../molecules/category/Category';
 import Button from '../../atoms/button/Button';
 import TextField from '../../atoms/textfield/TextField';
-import config from '../../../config';
 import './Categories.css';
 
 class Categories extends Component {
     constructor(props){
         super(props);
         this.state = {
-            categories: [],
             add : false,
             edit: false,
-            newCategory: '',
-            editCategory: {}
+            newDescriptionCategory: '',
+            idCategory: 0,
         }
 
-        this.showAddCategory = this.showAddCategory.bind();
         this.onChangeCategoryName = this.onChangeCategoryName.bind();
         this.addCategory = this.addCategory.bind()
         this.deleteCategory = this.deleteCategory.bind()
@@ -24,13 +23,7 @@ class Categories extends Component {
     }
 
     componentDidMount(){
-        fetch(`${config.ip}/categories`)
-            .then(response => {
-                        return response.json()
-                    }
-                )
-            .then(categories => {this.setState({categories: categories})})
-            .catch(error => { throw error});
+        this.props.getCategories();
     }
 
     showAddCategory = () => {
@@ -38,118 +31,46 @@ class Categories extends Component {
     }
 
     showEditCategory = (category) => {
-        this.setState({edit: true, editCategory: category, add: false});
+        this.setState({edit: true, idCategory: category.id , newDescriptionCategory: category.description, add: false});
     }
 
     onChangeCategoryName = (e) => {
-        this.setState({ newCategory: e.target.value });
+        this.setState({ newDescriptionCategory: e.target.value });
     }
     
     addCategory = () => {
-        const category = { description : this.state.newCategory }
-        fetch(`${config.ip}/categories`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(category)
-        })
-        .then(response => { return response.json(); })
-        .then(data => {
-                if(data.insert === 'success') {
-                    let categories = this.state.categories;
-                    categories.push({id: data.id, description: this.state.newCategory});
-                    this.setState({newCategory: '' , categories: categories, add: false});
-                } else {
-                    console.log('error');
-                }
-            }
-        )
-        .catch(error => { throw error});
+        this.props.addCategory(this.state.newDescriptionCategory)
     }
 
-    deleteCategory = (category) => {
-        console.log('Category before: ', this.state.categories);
-        const cat = category;
-        fetch(`${config.ip}/categories/${category.id}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        })
-        .then(response => {
-                return response.json();
-            }
-        )
-        .then(data => {
-                if(data.delete === 'success'){
-                    let categories = this.state.categories;
-                    for(let i = 0; i < categories.length; i++){
-                        if(categories[i].id === cat.id) {
-                            console.log('index: ', i)
-                            const element = categories.splice(i, 1);
-                            console.log(element)
-                        }
-                    }
-                    console.log('Category after: ', categories);
-                    this.setState({categories: categories});
-                } else {
-                    console.log('error');
-                }
-            }
-        )
-        .catch(error => { throw error });
+    deleteCategory = (id) => {
+        this.props.deleteCategory(id);
     }
     
     updateCategory = () => {
-        const editCategory = this.state.editCategory;
-        fetch(`${config.ip}/categories/${editCategory.id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(editCategory)
-        })
-        .then(response => {
-                return response.json();
-            }
-        )
-        .then(data => {
-                if(data.update === 'success') {
-                    let categories = this.state.categories;
-                    categories.forEach( category => {
-                        if(category.id === editCategory.id){
-                            category.description = this.state.newCategory
-                        }
-                    })
-                    this.setState({editCategory: {}, newCategory:'', edit: false, categories: categories});
-                }
-            }
-        )
-        .catch(error => { throw error});
+        this.props.updateCategory(this.state.idCategory, this.state.newDescriptionCategory)
     }
 
     render() {
-        const { list } = this.props;
-        const { categories, add, edit, editCategory } = this.state;
-        const listCategories = categories.map(category =>{
+        const { categories, loading, list } = this.props;
+        const { add, edit, newDescriptionCategory } = this.state;
+        const listCategories = categories &&  categories !== undefined? categories.map(category =>{
             if(list) {
-                return <li key={category.id}><Category description={category.description} list={list}/></li>
+                return <li key={category.id}><Category description={category.description} /></li>
             } else {
                 return (
                     <tr key={category.id}>
                         <td>{category.description}</td>
-                        <td><Button onClick={() => this.deleteCategory(category)}/></td>
-                        <td><Button  onClick={() => this.showEditCategory(category)}/></td>
+                        <td><Button text="Borrar" onClick={() => this.deleteCategory(category.id)}/></td>
+                        <td><Button text="Editar" onClick={() => this.showEditCategory(category)}/></td>
                     </tr>
                 )
             }
-        })
+        }) : ''
         return (
             <div className='categories-component'>
                 {list ?
                     <div className='categories-list'>
-                        <ul>
+                        <ul className='list'>
                             {listCategories}
                         </ul>
                     </div>
@@ -163,7 +84,10 @@ class Categories extends Component {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {listCategories}
+                                    {loading?
+                                        <tr><td>Cargando...</td></tr>
+                                        : listCategories
+                                    }
                                 </tbody>
                             </table>
                             <Button text='Agregar Categoria' onClick={this.showAddCategory} />
@@ -177,9 +101,9 @@ class Categories extends Component {
                         }
                         {edit &&
                             <div className='category'>
-                                <h1>Edit Category: {editCategory.description}</h1>
+                                <h1>Edit Category: {newDescriptionCategory.description}</h1>
                                 <TextField id='txtEdit' text='Nuevo nombre de la categoria:  ' onChange={this.onChangeCategoryName}/>
-                                <Button text='Modificar' onClick={() => this.updateCategory()} />
+                                <Button text='Modificar' onClick={this.updateCategory} />
                             </div>
                         }
                     </div>
@@ -189,4 +113,22 @@ class Categories extends Component {
     }
 }
 
-export default Categories;
+const mapStateToProps = state => {
+    return {
+        loading: state.categories.loading,
+        categories: state.categories.categories,
+        category: state.categories.category,
+        err: state.categories.err
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        getCategories: () => dispatch(getCategories()),
+        addCategory: description => dispatch(addCategory(description)),
+        deleteCategory: id => dispatch(deleteCategory(id)),
+        updateCategory: (id, newDescription) => dispatch(updateCategory(id, newDescription))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Categories);

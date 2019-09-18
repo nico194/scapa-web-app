@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Image from '../../atoms/image/Image';
 import Link from '../../atoms/link/Link';
 import Logo from '../../../public/logo/logo-desktop.jpg';
 import Portada from '../../../public/portada/portada-desktop.jpg'
@@ -19,11 +18,11 @@ class Navbar extends Component {
         return (
             <div className='navbar-component'>
                 { admin &&
-                    <Image className='portada' src={Portada} alt='portada'/>
+                    <img className='portada' src={Portada} alt='portada'/>
                 }
                 <div className="nav">
                     <div className="left-content">
-                        <Image className='logo' src={Logo} alt='logo'/>
+                        <img className='logo' src={Logo} alt='logo'/>
                         <ul className='links'>
                             {linkLeft}
                         </ul>

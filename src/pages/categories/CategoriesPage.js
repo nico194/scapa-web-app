@@ -10,7 +10,7 @@ export default class CategoriesPage extends Component {
         return (
             <div className='categories-page'>
                 <Navbar leftLinks={adminNavbarLeft} rightLinks={adminNavbarRight} admin={false} />
-                <Categories link={false} />
+                <Categories />
             </div>
         )
     }

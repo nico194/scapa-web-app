@@ -59,7 +59,8 @@ const config = {
             goTo: '/',
             text: 'Salir'
         }
-    ]
+    ],
+    image: 'https://atasouthport.com/wp-content/uploads/2017/04/default-image.jpg'
 }
 
 export default config;

@@ -1,0 +1,8 @@
+.pictogram-component {
+    display: flex;
+    flex-direction: column;
+}
+
+.pictogram-component span {
+    text-align: center;
+}

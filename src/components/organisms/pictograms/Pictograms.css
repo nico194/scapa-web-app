@@ -1,0 +1,13 @@
+.pictograms-component {
+    margin: 10px 50px;
+}
+
+.pictograms-component .pictograms-list {
+    float: left;
+    width: 70%
+}
+
+.pictograms-component .add-edit {
+    float: right;
+    width: 30%;
+}
