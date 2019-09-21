@@ -1,17 +1,28 @@
 import React from 'react'
 
 const Dropdown = (props) => {
-    const { options, onChange, label} = props;
-    const list = options && options !== undefined ? options.map(element => {
+    const { list, onChange, label} = props;
+    
+        console.log('options: ', props)
+
+    const options = list.map(element => {
         return (
             <option key={element.id} value={element.id}>{element.description}</option>
         )
-    }) : '';
+    });
+
     return (
-        <select onChange={onChange}>
-            <option value="selected">Seleccione {label}...</option>
-            {list}
-        </select>
+        <div>
+        <label>{label} :</label>
+            {list !== undefined && list.length < 0 ?
+                <span>Cargando...</span>
+                :
+                <select onChange={onChange}>
+                    <option value="selected">Seleccione {label}...</option>
+                    {options}
+                </select>
+            }
+        </div>
     )
 }
 

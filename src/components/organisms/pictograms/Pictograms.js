@@ -6,6 +6,7 @@ import Pictogram from '../../molecules/pictogram/Pictogram';
 import Categories from '../categories/Categories';
 import Button from '../../atoms/button/Button';
 import TextField from '../../atoms/textfield/TextField';
+import Uploadfile from '../../atoms/uploadFile/Uploadfile';
 import Dropdown from '../../atoms/dropdown/Dropdown';
 import './Pictograms.css';
 
@@ -26,14 +27,14 @@ class Pictograms extends Component {
     }
     
     componentDidMount(){
-        this.props.getCategories();
         this.props.getPictograms();
+        this.props.getCategories();
     }
     
     showAddPictogram = () => {
         this.setState({add: !this.state.add, edit: false})
     }
-
+    
     selectCategory = (e) => {
         this.setState({ idCategory: e.target.value})
     }
@@ -46,9 +47,9 @@ class Pictograms extends Component {
     //     this.setState({ newDescriptionCategory: e.target.value });
     // }
     
-    // addPictogram = () => {
-    //     this.props.addPictogram(this.state.newDescriptionPictogram);
-    // }
+    addPictogram = () => {
+        this.props.addPictogram();
+    }
 
     // deletePictogram = (id) => {
     //     this.props.deletePictogram(id);
@@ -61,7 +62,7 @@ class Pictograms extends Component {
     render() {
         const { pictograms, categories, loadingPictograms , loadingCategories } = this.props;
         const { add, edit } = this.state;
-        console.log(categories)
+        console.log('loading categories: ', loadingCategories,)
         const titleDivAddEdit = add ? 'Nuevo Pictograma: ' : (edit && 'Editar Pictograma : ')
         const listPictograms = pictograms &&  pictograms !== undefined? pictograms.map(pictogram => {
             return (
@@ -86,16 +87,12 @@ class Pictograms extends Component {
                 {(add || edit) &&
                     <div className='add-edit'>
                         <h1>{titleDivAddEdit}</h1>
+                        <Uploadfile label='Imagen: ' plasceholder='Selecione una imagen...'/>
                         <TextField text='Descripcion: ' />
-                        {loadingCategories ?
-                            <span>Cargando...</span>
-                            :
-                            <Dropdown list={categories} onChange={this.selectCategory} label='Categorias' />
-                        }
-                        
+                        <Dropdown list={categories} onChange={this.selectCategory} label='Categoria' />
+                        <Button text='Agregar' onClick={this.addPictogram} />
                     </div>
                 }
-                    
             </div>
         )
     }

@@ -31,12 +31,14 @@ export const getPictogramsByCategory = (id) => {
     }
 }
 
-export const addPictogram = (description) => {
+export const addPictogram = (pictogram) => {
+    const formData = new FormData();
+    formData.append("pictogramImage", pictogram.image)    
     return dispatch => {
         fetch(`${config.ip}/pictograms`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'multipart/form-data'
             },
             body: JSON.stringify({description})
         })
