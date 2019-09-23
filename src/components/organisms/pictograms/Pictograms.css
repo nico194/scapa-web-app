@@ -15,3 +15,8 @@
 .pictograms-component .add-edit div {
     padding-top: 10px;
 }
+
+.pictograms-component .pictograms-list .pictogram .buttons {
+    display: flex;
+    justify-content: center;
+}

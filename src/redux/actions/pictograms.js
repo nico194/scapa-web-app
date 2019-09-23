@@ -33,17 +33,22 @@ export const getPictogramsByCategory = (id) => {
 
 export const addPictogram = (pictogram) => {
     const formData = new FormData();
-    formData.append("pictogramImage", pictogram.image)    
+    formData.append("pictogramImage", pictogram.image, `${pictogram.description}.jpg`);
+    formData.append("description", pictogram.description);
+    formData.append('category_id', pictogram.idCategory);
+    for (var key of formData.entries()) {
+        console.log(key[0] + ', ' + key[1]);
+    }  
     return dispatch => {
         fetch(`${config.ip}/pictograms`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'multipart/form-data'
+                'Content-Type': 'multipart/form-data;boundary=----WebKitFormBoundaryyrV7KO0BoCBuDbTL'
             },
-            body: JSON.stringify({description})
+            body: formData
         })
         .then(res => res.json())
-        .then(data => data.insert === 'success' ? dispatch({ type: FETCH_ADD_PICTOGRAM_SUCCESS, payload: { pictogram: { id: data.id, description }}}) : 'error')
+        .then(data => data.insert === 'success' ? dispatch({ type: FETCH_ADD_PICTOGRAM_SUCCESS, payload: { pictogram }}) : 'error')
         .catch(err => dispatch({type: FETCH_PICTOGRAMS_ERROR, payload: {err}}));
     }
 }

@@ -95,14 +95,14 @@ class Categories extends Component {
                         {add &&
                             <div className='category'>
                                 <h1>Add Category:</h1>
-                                <TextField id='txtAdd' text='Nombre de la categoria:  ' onChange={this.onChangeCategoryName} />
+                                <TextField id='txtAdd' label='Nombre de la categoria:  ' onChange={this.onChangeCategoryName} />
                                 <Button text='Agregar' onClick={this.addCategory} />
                             </div>
                         }
                         {edit &&
                             <div className='category'>
                                 <h1>Edit Category: {newDescriptionCategory.description}</h1>
-                                <TextField id='txtEdit' text='Nuevo nombre de la categoria:  ' onChange={this.onChangeCategoryName}/>
+                                <TextField id='txtEdit' label='Nuevo nombre de la categoria:  ' onChange={this.onChangeCategoryName}/>
                                 <Button text='Modificar' onClick={this.updateCategory} />
                             </div>
                         }

@@ -6,7 +6,7 @@ const Pictogram = (props) => {
     const {image , description} = props
     return (
         <div className='pictogram-component'>
-            <img src={image ? image : config.image} alt={description} />
+            <img src={image ? `${config.ip}/${image}` : config.image} alt={description} />
             <span>{description}</span>
         </div>
     )

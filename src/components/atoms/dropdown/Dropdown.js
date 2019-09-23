@@ -2,9 +2,6 @@ import React from 'react'
 
 const Dropdown = (props) => {
     const { list, onChange, label} = props;
-    
-        console.log('options: ', props)
-
     const options = list.map(element => {
         return (
             <option key={element.id} value={element.id}>{element.description}</option>

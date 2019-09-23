@@ -1,11 +1,11 @@
 import React from 'react'
 
 const Uploadfile = (props) => {
-    const{ label, placeholder } = props
+    const{ label, onChange } = props
     return (
         <div>
             <label>{label}</label>
-            <input type="file" name="" id="" placeholder={placeholder}/>
+            <input type="file" name="" onChange={onChange}/>
         </div>
     )
 }

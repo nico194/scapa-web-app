@@ -17,6 +17,9 @@ class Pictograms extends Component {
             add : false,
             edit: false,
             idCategory: 0,
+            description: '',
+            image: null,
+
         }
 
         // this.onChangeCategoryName = this.onChangeCategoryName.bind();
@@ -28,17 +31,14 @@ class Pictograms extends Component {
     
     componentDidMount(){
         this.props.getPictograms();
-        this.props.getCategories();
     }
     
     showAddPictogram = () => {
+        this.props.getCategories();
         this.setState({add: !this.state.add, edit: false})
     }
     
-    selectCategory = (e) => {
-        this.setState({ idCategory: e.target.value})
-    }
-
+    
     // showEditCategory = (category) => {
     //     this.setState({edit: true, idCategory: category.id , newDescriptionCategory: category.description, add: false});
     // }
@@ -47,8 +47,25 @@ class Pictograms extends Component {
     //     this.setState({ newDescriptionCategory: e.target.value });
     // }
     
+    onChangeDescription = (e) => {
+        this.setState({ description : e.target.value });
+    }
+
+    onChangeImage = (e) => {
+        this.setState({ image: e.target.files[0]});
+    }
+
+    selectCategory = (e) => {
+        this.setState({ idCategory: e.target.value})
+    }
+
     addPictogram = () => {
-        this.props.addPictogram();
+        const pictogram = {
+            description: this.state.description,
+            image: this.state.image,
+            idCategory: this.state.idCategory
+        }
+        this.props.addPictogram(pictogram);
     }
 
     // deletePictogram = (id) => {
@@ -61,16 +78,15 @@ class Pictograms extends Component {
 
     render() {
         const { pictograms, categories, loadingPictograms , loadingCategories } = this.props;
-        const { add, edit } = this.state;
-        console.log('loading categories: ', loadingCategories,)
+        const { add, edit, description } = this.state;
         const titleDivAddEdit = add ? 'Nuevo Pictograma: ' : (edit && 'Editar Pictograma : ')
         const listPictograms = pictograms &&  pictograms !== undefined? pictograms.map(pictogram => {
             return (
                 <div key={pictogram.id} className="pictogram">
                     <Pictogram image={pictogram.image} description={pictogram.description} />
-                    <div>
-                        <Button onClick={() => this.deletePictogram(pictogram.id)} >Eliminar</Button>
-                        <Button onClick={() => this.deletePictogram(pictogram)} >Editar</Button>
+                    <div className='buttons'>
+                        <Button text='Eliminar' onClick={() => this.deletePictogram(pictogram.id)} />
+                        <Button text='Editar' onClick={() => this.deletePictogram(pictogram)} />
                     </div>
                 </div>
             )
@@ -81,14 +97,14 @@ class Pictograms extends Component {
                 <div className='pictograms-list'>
                     <h1>Pictograms</h1>
                     <Categories list={true}/>
-                    
+                    {listPictograms}
                     <Button text='Agregar Pictograma' onClick={this.showAddPictogram}/>
                 </div>
                 {(add || edit) &&
                     <div className='add-edit'>
                         <h1>{titleDivAddEdit}</h1>
-                        <Uploadfile label='Imagen: ' plasceholder='Selecione una imagen...'/>
-                        <TextField text='Descripcion: ' />
+                        <Uploadfile label='Imagen: ' onChange={this.onChangeImage} />
+                        <TextField label='Descripcion: ' onChange={this.onChangeDescription} />
                         <Dropdown list={categories} onChange={this.selectCategory} label='Categoria' />
                         <Button text='Agregar' onClick={this.addPictogram} />
                     </div>
@@ -99,7 +115,6 @@ class Pictograms extends Component {
 }
 
 const mapStateToProps = state => {
-    console.log('redux-state: ', state)
     return {
         loadingPictograms: state.pictograms.loading,
         loadingCategories: state.categories.loading,
@@ -113,7 +128,7 @@ const mapDispatchToProps = dispatch => {
     return {
         getPictograms: () => dispatch(getPictograms()),
         getCategories: () => dispatch(getCategories()),
-        // addPictogram: description => dispatch(addPictogram(description)),
+        addPictogram: pictogram => dispatch(addPictogram(pictogram)),
         // deletePictogram: id => dispatch(deletePictogram(id)),
         // updatePictogram: (id, newDescription) => dispatch(updatePictogram(id, newDescription))
     }

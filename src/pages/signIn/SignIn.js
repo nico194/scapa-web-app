@@ -51,9 +51,9 @@ class SignIn extends Component {
             <div className="sign-in-page">
                 <div className="wrapper-sign-in">
                     <h1>SignIn</h1>
-                    <TextField text='Email: ' onChange={(e) => {this.onChangeTextField(e, 'email')}} placeholder='Ingrese su email...'/>
+                    <TextField label='Email: ' onChange={(e) => {this.onChangeTextField(e, 'email')}} placeholder='Ingrese su email...'/>
                     <br/>
-                    <TextField text='Password: ' onChange={(e) => {this.onChangeTextField(e, 'password')}} placeholder='Ingrese su password...'/>
+                    <TextField label='Password: ' onChange={(e) => {this.onChangeTextField(e, 'password')}} placeholder='Ingrese su password...'/>
                     <br/>
                     <Button text='Ingresar' onClick={this.onClickLogin}/>
                     <br/>

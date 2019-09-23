@@ -51,11 +51,11 @@ class SignUp extends Component {
             <div className="sign-up-component">
                 <div className="wrapper-sign-up">
                     <h1>SignUp</h1>
-                    <TextField text='Email: ' onChange={(e) => {this.onChangeTextField(e, 'email')}} placeholder='Ingrese su email...'/>
+                    <TextField label='Email: ' onChange={(e) => {this.onChangeTextField(e, 'email')}} placeholder='Ingrese su email...'/>
                     <br/>
-                    <TextField text='Password: ' onChange={(e) => {this.onChangeTextField(e, 'password')}} placeholder='Ingrese su password...'/>
+                    <TextField label='Password: ' onChange={(e) => {this.onChangeTextField(e, 'password')}} placeholder='Ingrese su password...'/>
                     <br/>
-                    <TextField text='Nombre: ' onChange={(e) => {this.onChangeTextField(e, 'name')}} placeholder='Ingrese su nombre...'/>
+                    <TextField label='Nombre: ' onChange={(e) => {this.onChangeTextField(e, 'name')}} placeholder='Ingrese su nombre...'/>
                     <br/>
                     <Button text='Registrarse' onClick={this.onClickLogin}/>
                     {loading && 
