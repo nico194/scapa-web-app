@@ -1,14 +1,10 @@
-.categories-component {
-    margin: 10px 50px;
-}
-
 .categories-component .list {
     list-style: none;
     display: flex;
 }
 
 .categories-component .list li {
-    padding-left: 10px;
+    margin-right: 10px;
 }
 
 .categories-table .table {
@@ -22,6 +18,7 @@
 
 .categories-table .table table thead th {
     color: blue;
+    font-size: 40px;
 }
 .categories-table .table table td i {
     color: #76bdde;

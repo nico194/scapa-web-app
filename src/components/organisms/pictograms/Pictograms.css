@@ -7,6 +7,17 @@
     width: 70%
 }
 
+.pictograms-component .pictograms-list p {
+    color: blue;
+    font-size: 40px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.pictograms-component .pictograms-list .list {
+    padding-left: 0;
+}
+
 .pictograms-component .add-edit {
     float: right;
     width: 30%;
@@ -16,7 +27,29 @@
     padding-top: 10px;
 }
 
-.pictograms-component .pictograms-list .pictogram .buttons {
+.pictograms-component .pictograms-list .pictograms{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.pictograms-component .pictograms-list .pictograms .pictogram {
+    margin-top: 30px;
+    margin-right: 30px;
+}
+
+.pictograms-component .pictograms-list .pictograms .pictogram img{
+    width: 200px;
+    height: 150px;
+}
+.pictograms-component .pictograms-list .pictograms .pictogram .buttons {
     display: flex;
     justify-content: center;
 }
+
+.pictograms-component .pictograms-list .primary {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+

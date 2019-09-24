@@ -1,5 +1,5 @@
 import { FETCH_CATEGORIES_PENDING,
-    FETCH_CATEGORIES_ERROR,
+         FETCH_CATEGORIES_ERROR,
          FETCH_CATEGORIES_SUCCESS, 
          FETCH_ADD_CATEGORY_SUCCESS,
          FETCH_UPDATE_CATEGORY_SUCCESS,
@@ -29,7 +29,7 @@ export const addCategory = (description) => {
             body: JSON.stringify({description})
         })
         .then(res => res.json())
-        .then(data => data.insert === 'success' ? dispatch({ type: FETCH_ADD_CATEGORY_SUCCESS, payload: { category: { id: data.id, description }}}) : 'error')
+        .then(data => data.insert === 'success' ? dispatch({ type: FETCH_ADD_CATEGORY_SUCCESS, payload: { category: { id: data.response.id, description: description }}}) : 'error')
         .catch(err => dispatch({type: FETCH_CATEGORIES_ERROR, payload: {err}}));
     }
 }
@@ -58,7 +58,7 @@ export const updateCategory = (id, newDescription) => {
             body: JSON.stringify({description: newDescription})
         })
         .then(res => res.json())
-        .then(data => data.update === 'success' ? dispatch({ type: FETCH_UPDATE_CATEGORY_SUCCESS, payload: {id, newDescription}}) : 'error')
+        .then(data => data.update === 'success' ? dispatch({ type: FETCH_UPDATE_CATEGORY_SUCCESS, payload: { id, newDescription }}) : 'error')
         .catch(err => dispatch({type: FETCH_CATEGORIES_ERROR, payload: {err}}));
     }
 }

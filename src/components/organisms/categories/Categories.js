@@ -39,7 +39,8 @@ class Categories extends Component {
     }
     
     addCategory = () => {
-        this.props.addCategory(this.state.newDescriptionCategory)
+        this.props.addCategory(this.state.newDescriptionCategory);
+        this.setState({ add: false });
     }
 
     deleteCategory = (id) => {
@@ -47,7 +48,8 @@ class Categories extends Component {
     }
     
     updateCategory = () => {
-        this.props.updateCategory(this.state.idCategory, this.state.newDescriptionCategory)
+        this.props.updateCategory(this.state.idCategory, this.state.newDescriptionCategory);
+        this.setState({ edit: false });
     }
 
     render() {

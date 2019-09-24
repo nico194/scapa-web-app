@@ -36,6 +36,7 @@ function categoriesReducer(state = initialState, {type, payload}) {
                 categories: payload.categories
             }
         case FETCH_ADD_CATEGORY_SUCCESS: {
+            console.log('Category: ', payload.category)
             return {
                 ...state,
                 categories: state.categories.concat(payload.category)

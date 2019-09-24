@@ -22,7 +22,6 @@ function pictogramsReducer(state = initialState, {type, payload}) {
                 loading: true
             }
         case FETCH_PICTOGRAMS_ERROR: {
-            console.log('Error: ', payload.err)
             return {
                 ...state,
                 loading: false,
@@ -36,7 +35,6 @@ function pictogramsReducer(state = initialState, {type, payload}) {
                 pictograms: payload.pictograms
                 }
         case FETCH_ADD_PICTOGRAM_SUCCESS: {
-            console.log(payload)
             return {
                 ...state,
                 pictograms: state.pictograms.concat(payload.pictogram)

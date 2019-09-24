@@ -3,7 +3,7 @@ import config from '../../../config';
 import './Pictogram.css';
 
 const Pictogram = (props) => {
-    const {image , description} = props
+    const {image , description} = props;
     return (
         <div className='pictogram-component'>
             <img src={image ? `${config.ip}/${image}` : config.image} alt={description} />
