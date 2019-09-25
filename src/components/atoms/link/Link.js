@@ -5,7 +5,7 @@ import './Links.css';
 const link = (props) => {
     const {text, goTo} = props;
     return (
-        <Link className='link' to={goTo}>{text}</Link>
+        <Link className='link' to={goTo}>{text}</Link> 
     )
 }
 

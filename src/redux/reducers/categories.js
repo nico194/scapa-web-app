@@ -7,11 +7,9 @@ import { FETCH_CATEGORIES_PENDING,
        } from '../constants/categories';
 
 const initialState = {
-    add : false,
-    edit: false,
-    category: {},
     loading: false,
     categories: [],
+    category: {},
     err: null
 }
 

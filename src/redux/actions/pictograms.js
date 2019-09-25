@@ -12,9 +12,7 @@ export const getPictograms = () => {
         dispatch({ type: FETCH_PICTOGRAMS_PENDING});
         fetch(`${config.ip}/pictograms`)
         .then(res => res.json())
-        .then(pictograms => {
-            return dispatch({ type: FETCH_PICTOGRAMS_SUCCESS, payload: {pictograms}})
-        })
+        .then(pictograms => dispatch({ type: FETCH_PICTOGRAMS_SUCCESS, payload: {pictograms}}))
         .catch( err => dispatch({ type: FETCH_PICTOGRAMS_ERROR, payload: {err}}))
     }
 }
@@ -24,9 +22,7 @@ export const getPictogramsByCategory = (id) => {
         dispatch({ type: FETCH_PICTOGRAMS_PENDING});
         fetch(`${config.ip}/pictograms/category/${id}`)
         .then(res => res.json())
-        .then(pictograms => {
-            return dispatch({ type: FETCH_PICTOGRAMS_SUCCESS, payload: {pictograms}})
-        })
+        .then(pictograms => dispatch({ type: FETCH_PICTOGRAMS_SUCCESS, payload: {pictograms}}))
         .catch( err => dispatch({ type: FETCH_PICTOGRAMS_ERROR, payload: {err}}))
     }
 }

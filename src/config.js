@@ -13,7 +13,7 @@ const config = {
         },
         {
             goTo: '/signup',
-            text: 'Resistrarse'
+            text: 'Registrarse'
         }
     ],
     adminNavbarLeft: [

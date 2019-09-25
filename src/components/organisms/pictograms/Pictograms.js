@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import { getPictograms, addPictogram, deletePictogram, updatePictogram } from '../../../redux/actions/pictograms'
 import { getCategories } from '../../../redux/actions/categories'
 import Pictogram from '../../molecules/pictogram/Pictogram';
-import Categories from '../categories/Categories';
 import Button from '../../atoms/button/Button';
 import TextField from '../../atoms/textfield/TextField';
 import Uploadfile from '../../atoms/uploadFile/Uploadfile';
 import Dropdown from '../../atoms/dropdown/Dropdown';
 import './Pictograms.css';
+import Categories from '../categories/Categories';
 
 class Pictograms extends Component {
     constructor(props){
@@ -22,11 +22,8 @@ class Pictograms extends Component {
 
         }
 
-        // this.onChangeCategoryName = this.onChangeCategoryName.bind();
-        // this.addPictogram = this.addPictogram.bind()
-        // this.deletePictogram = this.deletePictogram.bind()
-        // this.updatePictogram = this.updatePictogram.bind()
         this.selectCategory = this.selectCategory.bind();
+        this.findPictogramsByCategory = this.findPictogramsByCategory.bind();
     }
     
     componentDidMount(){
@@ -36,15 +33,6 @@ class Pictograms extends Component {
     showAddPictogram = () => {
         this.setState({add: !this.state.add, edit: false})
     }
-    
-    
-    // showEditCategory = (category) => {
-    //     this.setState({edit: true, idCategory: category.id , newDescriptionCategory: category.description, add: false});
-    // }
-
-    // onChangeCategoryName = (e) => {
-    //     this.setState({ newDescriptionCategory: e.target.value });
-    // }
     
     onChangeDescription = (e) => {
         this.setState({ description : e.target.value });
@@ -76,8 +64,12 @@ class Pictograms extends Component {
     //     this.props.updatePictogram(this.state.idCategory, this.state.newDescriptionCategory);
     // }
 
+    findPictogramsByCategory = (category) => {
+        console.log(category)
+    }
+
     render() {
-        const { pictograms, categories, loadingPictograms , loadingCategories } = this.props;
+        const { pictograms, categories, loadingPictograms } = this.props;
         const { add, edit } = this.state;
         const titleDivAddEdit = add ? 'Nuevo Pictograma: ' : (edit && 'Editar Pictograma : ')
         const listPictograms = pictograms &&  pictograms !== undefined? pictograms.map(pictogram => {
@@ -96,17 +88,17 @@ class Pictograms extends Component {
             <div className='pictograms-component'>
                 <div className='pictograms-list'>
                     <p>Pictograms</p>
-                    <Button onClick={this.allPictograms} text='Todos'/>
-                    <Categories list={true}/>
-                    {pictograms.length === 0 &&
-                        <h3>No hay pictogramas</h3>
-                    }
+                    <Categories list={true} />
                     {loadingPictograms ?
                         <h2>Cargando...</h2>
                         :
-                        <div className="pictograms">
-                            {listPictograms}
-                        </div>
+                        (pictograms.length === 0 ?
+                            <h3>No hay pictogramas</h3>
+                            :
+                            <div className="pictograms">
+                                {listPictograms}
+                            </div>
+                        )                        
                     }
                     
                     <Button className='primary' text='Agregar Pictograma' onClick={this.showAddPictogram}/>
@@ -128,7 +120,6 @@ class Pictograms extends Component {
 const mapStateToProps = state => {
     return {
         loadingPictograms: state.pictograms.loading,
-        loadingCategories: state.categories.loading,
         categories: state.categories.categories,
         pictograms: state.pictograms.pictograms,
         err: state.pictograms.err

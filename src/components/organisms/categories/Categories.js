@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getCategories, addCategory, deleteCategory, updateCategory } from '../../../redux/actions/categories'
+import { getPictograms, getPictogramsByCategory } from '../../../redux/actions/pictograms';
 import Category from '../../molecules/category/Category';
 import Button from '../../atoms/button/Button';
 import TextField from '../../atoms/textfield/TextField';
@@ -52,12 +53,20 @@ class Categories extends Component {
         this.setState({ edit: false });
     }
 
+    getPictograms = () => {
+        this.props.getPictograms();
+    }
+
+    getPictogramsByCategory = (idCategory) => {
+        this.props.getPictogramsByCategory(idCategory)
+    }
+
     render() {
         const { categories, loading, list } = this.props;
         const { add, edit, newDescriptionCategory } = this.state;
         const listCategories = categories &&  categories !== undefined? categories.map(category =>{
             if(list) {
-                return <li key={category.id}><Category description={category.description} /></li>
+                return <li key={category.id}><Category onClick={() => this.getPictogramsByCategory(category.id)} description={category.description} /></li>
             } else {
                 return (
                     <tr key={category.id}>
@@ -73,6 +82,7 @@ class Categories extends Component {
                 {list ?
                     <div className='categories-list'>
                         <ul className='list'>
+                            <li ><Category onClick={this.getPictograms} description='Todos' /></li>
                             {listCategories}
                         </ul>
                     </div>
@@ -119,7 +129,6 @@ const mapStateToProps = state => {
     return {
         loading: state.categories.loading,
         categories: state.categories.categories,
-        category: state.categories.category,
         err: state.categories.err
     }
 }
@@ -129,7 +138,9 @@ const mapDispatchToProps = dispatch => {
         getCategories: () => dispatch(getCategories()),
         addCategory: description => dispatch(addCategory(description)),
         deleteCategory: id => dispatch(deleteCategory(id)),
-        updateCategory: (id, newDescription) => dispatch(updateCategory(id, newDescription))
+        updateCategory: (id, newDescription) => dispatch(updateCategory(id, newDescription)),
+        getPictograms: () => dispatch(getPictograms()),
+        getPictogramsByCategory: idCategory => dispatch(getPictogramsByCategory(idCategory)),
     }
 }
 

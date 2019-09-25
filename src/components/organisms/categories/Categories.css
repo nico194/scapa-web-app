@@ -1,6 +1,7 @@
 .categories-component .list {
     list-style: none;
     display: flex;
+    flex-wrap: wrap;
 }
 
 .categories-component .list li {

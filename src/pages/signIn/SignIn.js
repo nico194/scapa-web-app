@@ -13,7 +13,8 @@ class SignIn extends Component {
         this.state = {
             email: '',
             password: '',
-            signIn: false,
+            signInAdmin: false,
+            signInTutor: false,
             loading: false
         }
         this.onChangeTextField = this.onChangeTextField.bind();
@@ -40,13 +41,21 @@ class SignIn extends Component {
                 }
             )
             .then( response => { return response.json()})
-            .then( data => data.token && this.setState({ signIn: true, loading: false}))
-            .catch( err => {throw err;});
+            .then( data => {
+                if(data.token){
+                    if(this.state.email === 'admin'){
+                        this.setState({ loading: false, signInAdmin: true});
+                    } else {
+                        this.setState({ loading: false, signInTutor: true});
+                    }
+                }  
+            })
+            .catch( err => { throw err; });
 
     }
 
     render() {
-        const { signIn, loading } = this.state;
+        const { loading, signInAdmin, signInTutor } = this.state;
         return (
             <div className="sign-in-page">
                 <div className="wrapper-sign-in">
@@ -61,11 +70,11 @@ class SignIn extends Component {
                     {loading && 
                         <h2>Cargando...</h2>
                     }
-                    {signIn &&
-                        <Redirect to="/main" />
+                    {signInAdmin &&
+                        <Redirect to='/categories' />
                     }
-                    {signIn && this.state.email === 'admin' ?
-                        <Redirect to="/categories" /> : ''
+                    {signInTutor &&
+                        <Redirect to='/menu' />
                     }
                 </div>
             </div>

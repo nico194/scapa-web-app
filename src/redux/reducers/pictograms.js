@@ -28,12 +28,13 @@ function pictogramsReducer(state = initialState, {type, payload}) {
                 err: payload.err
             }
         }
-        case FETCH_PICTOGRAMS_SUCCESS: 
+        case FETCH_PICTOGRAMS_SUCCESS: {
             return {
                 ...state,
                 loading: false,
                 pictograms: payload.pictograms
-                }
+            }
+        }
         case FETCH_ADD_PICTOGRAM_SUCCESS: {
             return {
                 ...state,
