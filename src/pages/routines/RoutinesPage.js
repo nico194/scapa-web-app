@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import Navbar from '../../components/molecules/navbar/Navbar';
 import config from '../../config';
 
-class TutorPage extends Component {
+class RoutinesPage extends Component {
     render() {
-        const {tutorNavbarLeft , tutorNavbarRight} = config;
-
+        const { tutorNavbarLeft, tutorNavbarRight } = config;
         return (
-            <div className="tutor-page">
+            <div className="routines-page">
                 <Navbar leftLinks={tutorNavbarLeft} rightLinks={tutorNavbarRight}/>
+                <h1>Routines Page</h1>
             </div>
         )
     }
 }
 
-export default TutorPage;
+export default RoutinesPage

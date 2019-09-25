@@ -8,9 +8,10 @@ import store from './redux/store';
 import Home from './pages/home/Home';
 import SignIn from './pages/signIn/SignIn';
 import SignUp from './pages/signUp/SignUp';
-import TutorPage from './pages/tutorPage/TutorPage';
 import CategoriesPage from './pages/categories/CategoriesPage';
-import PictogramsPage from './pages/pictograms/PictogramsPage'
+import PictogramsPage from './pages/pictograms/PictogramsPage';
+import PatientPage from './pages/patients/PatientsPage';
+import RoutinesPage from './pages/routines/RoutinesPage';
 
 const App = () => {
     return(
@@ -20,9 +21,10 @@ const App = () => {
                     <Route path="/" exact component={Home}/>
                     <Route path="/signin" component={SignIn}/>
                     <Route path="/signup" component={SignUp}/>
-                    <Route path="/menu" component={TutorPage} />
+                    <Route path="/patients" component={PatientPage} />
                     <Route path="/categories" component={CategoriesPage} />
                     <Route path="/pictograms" component={PictogramsPage} />
+                    <Route path="/routines" component={RoutinesPage} />
                 </Switch>
             </BrowserRouter>
         </Provider>

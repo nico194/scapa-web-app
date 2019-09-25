@@ -30,12 +30,6 @@ const config = {
             text: 'Pictogramas'
         },
     ],
-    adminNavbarRight: [
-        {
-            goTo: '/',
-            text: 'Salir'
-        }
-    ],
     tutorNavbarLeft: [
         {
             goTo: '/patients',
@@ -55,10 +49,6 @@ const config = {
             goTo: '/profile',
             text: 'Nombre Tutor'
         },
-        {
-            goTo: '/',
-            text: 'Salir'
-        }
     ],
     image: 'https://atasouthport.com/wp-content/uploads/2017/04/default-image.jpg'
 }
