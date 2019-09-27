@@ -21,7 +21,7 @@ class Navbar extends Component {
             return <li key={index}><Link goTo={link.goTo} text={link.text} /></li>
         }) 
         const linkRight = rightLinks !== undefined && rightLinks.map((link, index) => {
-            return link.goTo === '/profile' ? <li key={index}><Link goTo={link.goTo} text={nameTutor !== '' ? nameTutor : link.text} /></li> : <li key={index}><Link goTo={link.goTo} text={link.text} /></li>
+            return link.goTo === '/profile' ? <li key={index}><Link goTo={link.goTo} text={nameTutor !== '' ? nameTutor : link.text} /></li> : (link.goTo === '/signin' ? <li key={index}><Link goTo={nameTutor === 'admin' ? '/categories' : (nameTutor === 'tutor' ? '/patients' : link.goTo )} text={link.text} /></li> : <li key={index}><Link goTo={link.goTo} text={link.text} /></li> )
         })
 
         return (
@@ -51,7 +51,6 @@ class Navbar extends Component {
 }
 
 const mapStateToProps = state => {
-    console.log('redux', state)
     return { 
         tutor: state.tutors.tutor
     }

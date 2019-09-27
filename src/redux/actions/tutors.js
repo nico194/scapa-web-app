@@ -19,7 +19,8 @@ export const signIn = (tutor) => {
         })
         .then( response => response.json())
         .then( data => {
-            localStorage.setItem('tutor', JSON.stringify(data.tutors))
+            const tutor = btoa(JSON.stringify(data.tutors))
+            localStorage.setItem('tutor', tutor)
             if(data.tutors.email === 'admin') {
                 return dispatch({ type: TUTORS_SIGNIN_SUCCESS, payload: { tutor: data.tutors, signInAdmin: true, signInTutor: false }})
             } else {
@@ -42,7 +43,6 @@ export const signUp = (tutor) => {
         })
         .then( response => response.json())
         .then( data => {
-            console.log(data)
             if(data.token) {
                 return dispatch({ type: TUTORS_SIGNUP_SUCCESS, payload: { tutor: data.tutor}})
             }

@@ -1,0 +1,8 @@
+.patients-component {
+    margin: 70px 50px;
+}
+
+.patients-component p {
+    color: blue;
+    font-size: 40px;
+}

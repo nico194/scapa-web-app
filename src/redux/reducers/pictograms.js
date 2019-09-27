@@ -42,18 +42,18 @@ function pictogramsReducer(state = initialState, {type, payload}) {
             }
         }
         case FETCH_UPDATE_PICTOGRAM_SUCCESS: {
-            const index = state.pictograms.findIndex(category => category.id === payload.id);
+            const index = state.pictograms.findIndex(pictogram => pictogram.id === payload.id);
             state.pictograms[index].description = payload.newDescription;
             return {
                 ...state,
-                pictograms: state.pictograms.filter(category => category !== null)
+                pictograms: state.pictograms.filter(pictogram => pictogram !== null)
             };
         }
         case FETCH_DELETE_PICTOGRAM_SUCCESS: {
             return {
                 ...state,
                 loading: false,
-                pictograms: state.pictograms.filter(category => category.id !== payload.id)
+                pictograms: state.pictograms.filter(pictogram => pictogram.id !== payload.id)
             }
         }
         default:

@@ -23,7 +23,6 @@ class Pictograms extends Component {
         }
 
         this.selectCategory = this.selectCategory.bind();
-        this.findPictogramsByCategory = this.findPictogramsByCategory.bind();
     }
     
     componentDidMount(){
@@ -63,10 +62,6 @@ class Pictograms extends Component {
     // updatePictogram = () => {
     //     this.props.updatePictogram(this.state.idCategory, this.state.newDescriptionCategory);
     // }
-
-    findPictogramsByCategory = (category) => {
-        console.log(category)
-    }
 
     render() {
         const { pictograms, categories, loadingPictograms } = this.props;

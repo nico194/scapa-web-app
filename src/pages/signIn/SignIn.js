@@ -13,10 +13,7 @@ class SignIn extends Component {
 
         this.state = {
             email: '',
-            password: '',
-            signInAdmin: false,
-            signInTutor: false,
-            loading: false
+            password: ''
         }
         this.onChangeTextField = this.onChangeTextField.bind();
     }
@@ -35,6 +32,7 @@ class SignIn extends Component {
 
     render() {
         const { loading, signInAdmin, signInTutor } = this.props;
+
         return (
             <div className="sign-in-page">
                 <div className="wrapper-sign-in">
