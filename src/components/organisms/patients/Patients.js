@@ -6,6 +6,11 @@ import config from '../../../config';
 import './Pacients.css';
 
 class Patients extends Component {
+    constructor(props) {
+        super(props);
+
+        this.showPatientProfile = this.showPatientProfile.bind()
+    }
 
     componentDidMount() {
         this.props.getPatientsByTutor(this.props.tutor.id)
@@ -13,6 +18,10 @@ class Patients extends Component {
 
     unlinkPatient = (id) => {
         this.props.unlinkPatient(id);
+    }
+
+    showPatientProfile = id => {
+        window.location.href= `${config.pathName}/patients/${id}`;
     }
 
     render() {
@@ -23,7 +32,7 @@ class Patients extends Component {
                     <td>Image</td>
                     <td>{patient.name}</td>
                     <td>{config.getAge(patient.birthday)}</td>
-                    <td><Button text='Ver Perfil' onClick={() => console.log('Perfil: ', patient.id)}/></td>
+                    <td><Button text='Ver Perfil' onClick={() => this.showPatientProfile(patient.id)}/></td>
                     <td><Button text='Desvincular' onClick={() => this.unlinkPatient(patient.id)}/></td>
                 </tr>
             )

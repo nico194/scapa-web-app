@@ -10,7 +10,8 @@ import SignIn from './pages/signIn/SignIn';
 import SignUp from './pages/signUp/SignUp';
 import CategoriesPage from './pages/categories/CategoriesPage';
 import PictogramsPage from './pages/pictograms/PictogramsPage';
-import PatientPage from './pages/patients/PatientsPage';
+import PatientsPage from './pages/patients/PatientsPage';
+import PatientPage from './pages/patient/PatientPage';
 import RoutinesPage from './pages/routines/RoutinesPage';
 
 const App = () => {
@@ -21,9 +22,10 @@ const App = () => {
                     <Route path="/" exact component={Home}/>
                     <Route path="/signin" component={SignIn}/>
                     <Route path="/signup" component={SignUp}/>
-                    <Route path="/patients" component={PatientPage} />
                     <Route path="/categories" component={CategoriesPage} />
                     <Route path="/pictograms" component={PictogramsPage} />
+                    <Route path="/patients/:id" component={PatientPage} />
+                    <Route path="/patients" component={PatientsPage} />
                     <Route path="/routines" component={RoutinesPage} />
                 </Switch>
             </BrowserRouter>

@@ -19,6 +19,18 @@ export const getCategories = () => {
     }
 }
 
+export const getCategoriesByPatient = id => {
+    return dispatch => {
+        dispatch({ type: FETCH_CATEGORIES_PENDING});
+        fetch(`${config.ip}/categories/folder/${id}`)
+        .then(res => res.json())
+        .then(categories => {
+            return dispatch({ type: FETCH_CATEGORIES_SUCCESS, payload: {categories}})
+        })
+        .catch( err => dispatch({ type: FETCH_CATEGORIES_ERROR, payload: {err}}))
+    }
+}
+
 export const addCategory = (description) => {
     return dispatch => {
         fetch(`${config.ip}/categories`, {
