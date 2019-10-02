@@ -2,6 +2,7 @@ import {
     FETCH_PATIENTS_PENDING,
     FETCH_PATIENTS_ERROR,
     FETCH_PATIENTS_SUCCESS,
+    FETCH_PATIENT_SUCCESS,
     FETCH_ADD_PATIENT_SUCCESS,
     UNLINK_PATIENT_SUCCESS,
   } from '../constants/patients';
@@ -40,6 +41,13 @@ const patientsReducer = ( state = initialState, { type, payload }) => {
                 ...state,
                 loading: false,
                 patients: state.patients.filter(pictogram => pictogram.id !== payload.id)
+            }
+        }
+        case FETCH_PATIENT_SUCCESS: {
+            return {
+                ...state,
+                loading: false,
+                patient: payload.patient
             }
         }
         default:

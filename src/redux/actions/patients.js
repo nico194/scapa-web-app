@@ -3,14 +3,33 @@ import {
     FETCH_PATIENTS_ERROR,
     FETCH_PATIENTS_SUCCESS,
     LINK_PATIENT_SUCCESS,
+    FETCH_PATIENT_SUCCESS,
     UNLINK_PATIENT_SUCCESS,
   } from '../constants/patients';
 import config from '../../config';
 
+export const getPatientById = (id) => {
+    return dispatch => {
+        dispatch({ type: FETCH_PATIENTS_PENDING });
+        fetch(`${config.server}/patients/${id}`, {
+            method: 'GET',
+            header: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then( response => response.json())
+        .then( patient => {
+            console.log('Patient: ', patient)
+            dispatch({ type: FETCH_PATIENT_SUCCESS, payload: {patient: patient[0]}})}
+        )
+        .catch( err => dispatch({ type: FETCH_PATIENTS_ERROR, payload: {err}}));
+    }
+}
+
 export const getPatientsByTutor = (id) => {
     return dispatch => {
         dispatch({ type: FETCH_PATIENTS_PENDING });
-        fetch(`${config.ip}/patients/tutor/${id}`, {
+        fetch(`${config.server}/patients/tutor/${id}`, {
             method: 'GET',
             header: {
                 'Content-Type': 'application/json'
@@ -25,7 +44,7 @@ export const getPatientsByTutor = (id) => {
 export const unlinkPatient = (id) => {
     return dispatch => {
         dispatch({ type: FETCH_PATIENTS_PENDING });
-        fetch(`${config.ip}/patients/tutor/${id}`, {
+        fetch(`${config.server}/patients/tutor/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'

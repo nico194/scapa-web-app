@@ -10,7 +10,7 @@ import config from '../../config';
 export const signIn = (tutor) => {
     return dispatch => {
         dispatch({ type: FETCH_TUTORS_PENDING});
-        fetch(`${config.ip}/tutors/signin`, {
+        fetch(`${config.server}/tutors/signin`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -40,7 +40,7 @@ export const signUp = (tutor) => {
         formData.append('email', tutor.email);
         formData.append('password', tutor.password);
         dispatch({ type: FETCH_TUTORS_PENDING});
-        fetch(`${config.ip}/tutors/signup`, {
+        fetch(`${config.server}/tutors/signup`, {
             method: 'POST',
             body: formData
         })

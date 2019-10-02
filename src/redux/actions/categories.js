@@ -10,7 +10,7 @@ import config from '../../config';
 export const getCategories = () => {
     return dispatch => {
         dispatch({ type: FETCH_CATEGORIES_PENDING});
-        fetch(`${config.ip}/categories`)
+        fetch(`${config.server}/categories`)
         .then(res => res.json())
         .then(categories => {
             return dispatch({ type: FETCH_CATEGORIES_SUCCESS, payload: {categories}})
@@ -22,7 +22,7 @@ export const getCategories = () => {
 export const getCategoriesByPatient = id => {
     return dispatch => {
         dispatch({ type: FETCH_CATEGORIES_PENDING});
-        fetch(`${config.ip}/categories/folder/${id}`)
+        fetch(`${config.server}/categories/folder/${id}`)
         .then(res => res.json())
         .then(categories => {
             return dispatch({ type: FETCH_CATEGORIES_SUCCESS, payload: {categories}})
@@ -33,7 +33,7 @@ export const getCategoriesByPatient = id => {
 
 export const addCategory = (description) => {
     return dispatch => {
-        fetch(`${config.ip}/categories`, {
+        fetch(`${config.server}/categories`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -48,7 +48,7 @@ export const addCategory = (description) => {
 
 export const deleteCategory = (id) => {
     return dispatch => {
-        fetch(`${config.ip}/categories/${id}`, {
+        fetch(`${config.server}/categories/${id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
@@ -62,7 +62,7 @@ export const deleteCategory = (id) => {
 
 export const updateCategory = (id, newDescription) => {
     return dispatch => {
-        fetch(`${config.ip}/categories/${id}`, {
+        fetch(`${config.server}/categories/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'

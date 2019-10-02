@@ -10,7 +10,7 @@ import config from '../../config';
 export const getPictograms = () => {
     return dispatch => {
         dispatch({ type: FETCH_PICTOGRAMS_PENDING});
-        fetch(`${config.ip}/pictograms`)
+        fetch(`${config.server}/pictograms`)
         .then(res => res.json())
         .then(pictograms => dispatch({ type: FETCH_PICTOGRAMS_SUCCESS, payload: {pictograms}}))
         .catch( err => dispatch({ type: FETCH_PICTOGRAMS_ERROR, payload: {err}}))
@@ -20,7 +20,7 @@ export const getPictograms = () => {
 export const getPictogramsByCategory = (id) => {
     return dispatch => {
         dispatch({ type: FETCH_PICTOGRAMS_PENDING});
-        fetch(`${config.ip}/pictograms/category/${id}`)
+        fetch(`${config.server}/pictograms/category/${id}`)
         .then(res => res.json())
         .then(pictograms => dispatch({ type: FETCH_PICTOGRAMS_SUCCESS, payload: {pictograms}}))
         .catch( err => dispatch({ type: FETCH_PICTOGRAMS_ERROR, payload: {err}}))
@@ -33,7 +33,7 @@ export const addPictogram = (pictogram) => {
     formData.append("description", pictogram.description);
     formData.append('category_id', pictogram.idCategory); 
     return dispatch => {
-        fetch(`${config.ip}/pictograms`, {
+        fetch(`${config.server}/pictograms`, {
             method: 'POST',
             body: formData
         })
@@ -49,7 +49,7 @@ export const addPictogram = (pictogram) => {
 
 export const deletePictogram = (id) => {
     return dispatch => {
-        fetch(`${config.ip}/pictograms/${id}`, {
+        fetch(`${config.server}/pictograms/${id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
@@ -63,7 +63,7 @@ export const deletePictogram = (id) => {
 
 export const updatePictogram = (id, newDescription) => {
     return dispatch => {
-        fetch(`${config.ip}/pictograms/${id}`, {
+        fetch(`${config.server}/pictograms/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'

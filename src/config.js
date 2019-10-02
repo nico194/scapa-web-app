@@ -1,5 +1,5 @@
 const config = {
-    ip: 'http://localhost:8000', //'http://10.170.10.50:8000',
+    server: 'http://localhost:8000', //'http://10.170.10.50:8000',
     pathName: 'http://localhost:3000',
     homeNavbarLeft: [
         {

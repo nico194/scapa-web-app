@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
 import Button from '../../atoms/button/Button';
 import { getPatientsByTutor, unlinkPatient } from '../../../redux/actions/patients';
@@ -8,7 +9,10 @@ import './Pacients.css';
 class Patients extends Component {
     constructor(props) {
         super(props);
-
+        this.state = {
+            redirect: false,
+            id: 0
+        }
         this.showPatientProfile = this.showPatientProfile.bind()
     }
 
@@ -21,10 +25,11 @@ class Patients extends Component {
     }
 
     showPatientProfile = id => {
-        window.location.href= `${config.pathName}/patients/${id}`;
+        this.setState({ redirect: true, id})
     }
 
     render() {
+        const { redirect, id }= this.state
         const { patients, loading } = this.props
         const listPatients = patients.map( patient => {
             return (
@@ -60,6 +65,9 @@ class Patients extends Component {
                         </table>
                     )                        
                 }
+                {redirect &&
+                    <Redirect to={`/patients/${this.state.id}`} />
+                }
             </div>
         )
     }
@@ -67,6 +75,7 @@ class Patients extends Component {
 
 const mapStateToProps = state => ({
     patients: state.patients.patients,
+    patient: state.patients.patient,
     loading: state.patients.loading,
     tutor: state.tutors.tutor
 })
