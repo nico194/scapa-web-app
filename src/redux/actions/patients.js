@@ -2,7 +2,7 @@ import {
     FETCH_PATIENTS_PENDING,
     FETCH_PATIENTS_ERROR,
     FETCH_PATIENTS_SUCCESS,
-    FETCH_ADD_PATIENT_SUCCESS,
+    LINK_PATIENT_SUCCESS,
     UNLINK_PATIENT_SUCCESS,
   } from '../constants/patients';
 import config from '../../config';

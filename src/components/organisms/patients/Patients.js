@@ -25,7 +25,7 @@ class Patients extends Component {
     }
 
     render() {
-        const { patients } = this.props
+        const { patients, loading } = this.props
         const listPatients = patients.map( patient => {
             return (
                 <tr key={patient.id}>
@@ -40,18 +40,26 @@ class Patients extends Component {
         return (
             <div className='patients-component'>
                 <p>Pacientes</p>
-                <table className='patients-table'>
-                    <thead>
-                        <tr>
-                            <th>Imagen</th>
-                            <th>Nombre</th>
-                            <th>Edad</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {listPatients}
-                    </tbody>
-                </table>
+                {loading ?
+                    <h2>Cargando...</h2>
+                    :
+                    (patients.length === 0 ?
+                        <h3>No hay Pacientes vinculados</h3>
+                        :
+                        <table className='patients-table'>
+                            <thead>
+                                <tr>
+                                    <th>Imagen</th>
+                                    <th>Nombre</th>
+                                    <th>Edad</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {listPatients}
+                            </tbody>
+                        </table>
+                    )                        
+                }
             </div>
         )
     }
@@ -59,6 +67,7 @@ class Patients extends Component {
 
 const mapStateToProps = state => ({
     patients: state.patients.patients,
+    loading: state.patients.loading,
     tutor: state.tutors.tutor
 })
 

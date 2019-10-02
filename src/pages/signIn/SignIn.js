@@ -23,11 +23,7 @@ class SignIn extends Component {
     }
 
     onClickLogin = () => {
-        const tutor = {
-            email: this.state.email,
-            password: this.state.password
-        }
-        this.props.signIn(tutor);
+        this.props.signIn(this.state);
     }
 
     render() {

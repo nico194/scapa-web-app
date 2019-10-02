@@ -6,6 +6,11 @@ import {
     TUTORS_LOGOUT,
 } from '../constants/tutors'
 
+let initial = true;
+if(initial){
+    localStorage.setItem('tutor', JSON.stringify({}));
+    initial = false;
+}
 const regExp = new RegExp(`^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?$`);
 const isBase64 = regExp.test(localStorage.getItem('tutor'));
 
@@ -13,6 +18,7 @@ const initialState = {
     loading: false,
     signInAdmin: false,
     signInTutor: false,
+    signUpTutor: false,
     tutor: isBase64 ? JSON.parse(atob(localStorage.getItem('tutor'))) : {},
     err: null
 }
@@ -44,7 +50,8 @@ const tutorsReducer = (state = initialState, { type, payload }) => {
             return {
                 ...state,
                 loading: false,
-                tutor: payload.tutor
+                tutor: payload.tutor,
+                signUpTutor: true,
             }
         }
         case TUTORS_LOGOUT: {

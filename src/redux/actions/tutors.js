@@ -33,20 +33,19 @@ export const signIn = (tutor) => {
 
 export const signUp = (tutor) => {
     return dispatch => {
+        const formData = new FormData();
+        formData.append('tutorImage', tutor.image);
+        formData.append('name', tutor.name);
+        formData.append('birthday', tutor.birthday);
+        formData.append('email', tutor.email);
+        formData.append('password', tutor.password);
         dispatch({ type: FETCH_TUTORS_PENDING});
         fetch(`${config.ip}/tutors/signup`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(tutor)
+            body: formData
         })
         .then( response => response.json())
-        .then( data => {
-            if(data.token) {
-                return dispatch({ type: TUTORS_SIGNUP_SUCCESS, payload: { tutor: data.tutor}})
-            }
-        })
+        .then( data => data && dispatch({ type: TUTORS_SIGNUP_SUCCESS, payload: {tutor}}))
         .catch( err => dispatch({ type: FETCH_TUTORS_ERROR, payload: {err}}));
     }
 }

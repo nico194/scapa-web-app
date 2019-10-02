@@ -22,6 +22,7 @@ class Pictograms extends Component {
 
         }
 
+        this.onChangeField = this.onChangeField.bind();
         this.selectCategory = this.selectCategory.bind();
     }
     
@@ -32,13 +33,9 @@ class Pictograms extends Component {
     showAddPictogram = () => {
         this.setState({add: !this.state.add, edit: false})
     }
-    
-    onChangeDescription = (e) => {
-        this.setState({ description : e.target.value });
-    }
 
-    onChangeImage = (e) => {
-        this.setState({ image: e.target.files[0]});
+    onChangeField = (e, field) => {
+        field === 'image' ? this.setState({ image: e.target.files[0]}) : this.setState({ [field] : e.target.value });
     }
 
     selectCategory = (e) => {
@@ -101,8 +98,8 @@ class Pictograms extends Component {
                 {(add || edit) &&
                     <div className='add-edit'>
                         <h1>{titleDivAddEdit}</h1>
-                        <Uploadfile label='Imagen: ' onChange={this.onChangeImage} />
-                        <TextField label='Descripcion: ' onChange={this.onChangeDescription} />
+                        <Uploadfile label='Imagen: ' onChange={ e => { this.onChangeField(e, 'image') }} />
+                        <TextField label='Descripcion: ' onChange={ e => { this.onChangeField(e, 'description') }} />
                         <Dropdown list={categories} onChange={this.selectCategory} label='Categoria' />
                         <Button text='Agregar' onClick={this.addPictogram} />
                     </div>
