@@ -1,4 +1,13 @@
 /* The switch - the box around the slider */
+.checkbox-component {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.checkbox-component p {
+  margin-right: 15px;
+}
 .switch {
     position: relative;
     display: inline-block;

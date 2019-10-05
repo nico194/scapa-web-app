@@ -4,6 +4,13 @@
     flex-wrap: wrap;
 }
 
+.categories-component .categories-list p {
+    color: blue;
+    font-size: 25px;
+    font-weight: 700;
+    margin: 0;
+}
+
 .categories-component .list li {
     margin-right: 10px;
 }

@@ -1,5 +1,25 @@
 .patient-component {
     margin: 70px 50px;
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+}
+
+.patient-component .patient {
+    width: 40%;
+}
+
+.patient-component .categories-routines-patient {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+}
+
+.patient-component .categories-routines-patient .buttons{
+    display: flex;
+    flex-direction: row;
+    width: 60%;
+}
+
+.patient-component .categories-routines-patient .buttons button {
+    margin-right: 20px
 }

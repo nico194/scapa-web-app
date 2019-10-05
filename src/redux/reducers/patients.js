@@ -4,11 +4,14 @@ import {
     FETCH_PATIENTS_SUCCESS,
     FETCH_PATIENT_SUCCESS,
     FETCH_ADD_PATIENT_SUCCESS,
+    CHANGE_VOICE_ASSISTANT_PENDING,
+    CHANGE_VOICE_ASSISTANT,
     UNLINK_PATIENT_SUCCESS,
   } from '../constants/patients';
 
 const initialState = {
     loading: false,
+    loadingVoice: false,
     patient: {},
     patients : [],
     err: null,
@@ -47,6 +50,19 @@ const patientsReducer = ( state = initialState, { type, payload }) => {
             return {
                 ...state,
                 loading: false,
+                patient: payload.patient
+            }
+        }
+        case CHANGE_VOICE_ASSISTANT_PENDING: {
+            return {
+                ...state,
+                loadingVoice: true
+            }
+        }
+        case CHANGE_VOICE_ASSISTANT: {
+            return {
+                ...state,
+                loadingVoice: false,
                 patient: payload.patient
             }
         }

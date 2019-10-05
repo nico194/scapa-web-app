@@ -6,11 +6,7 @@ import {
     TUTORS_LOGOUT,
 } from '../constants/tutors'
 
-let initial = true;
-if(initial){
-    localStorage.setItem('tutor', JSON.stringify({}));
-    initial = false;
-}
+
 const regExp = new RegExp(`^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?$`);
 const isBase64 = regExp.test(localStorage.getItem('tutor'));
 
@@ -19,7 +15,7 @@ const initialState = {
     signInAdmin: false,
     signInTutor: false,
     signUpTutor: false,
-    tutor: isBase64 ? JSON.parse(atob(localStorage.getItem('tutor'))) : {},
+    tutor: isBase64 && JSON.parse(atob(localStorage.getItem('tutor'))),
     err: null
 }
 

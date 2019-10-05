@@ -81,6 +81,7 @@ class Categories extends Component {
             <div className='categories-component'>
                 {list ?
                     <div className='categories-list'>
+                        <p>Categorias</p>
                         <ul className='list'>
                             <li ><Category onClick={this.getPictograms} description='Todos' /></li>
                             {listCategories}
