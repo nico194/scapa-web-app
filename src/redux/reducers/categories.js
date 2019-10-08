@@ -1,14 +1,18 @@
 import { FETCH_CATEGORIES_PENDING,
          FETCH_CATEGORIES_ERROR,
          FETCH_CATEGORIES_SUCCESS,
+         FETCH_PATIENT_CATEGORIES_SUCCESS,
          FETCH_ADD_CATEGORY_SUCCESS,
+         FETCH_ADD_CATEGORIES_TO_FOLDER,
          FETCH_UPDATE_CATEGORY_SUCCESS,
          FETCH_DELETE_CATEGORY_SUCCESS,
+         FETCH_DELETE_CATEGORY_TO_FOLDER
        } from '../constants/categories';
 
 const initialState = {
     loading: false,
     categories: [],
+    patientCategories: [],
     category: {},
     err: null
 }
@@ -33,9 +37,16 @@ function categoriesReducer(state = initialState, {type, payload}) {
                 loading: false,
                 categories: payload.categories
             }
+        case FETCH_PATIENT_CATEGORIES_SUCCESS: 
+            return {
+                ...state,
+                loading: false,
+                patientCategories: payload.categories
+        }
         case FETCH_ADD_CATEGORY_SUCCESS: {
             return {
                 ...state,
+                loading: false,
                 categories: state.categories.concat(payload.category)
             }
         }
@@ -44,6 +55,7 @@ function categoriesReducer(state = initialState, {type, payload}) {
             state.categories[index].description = payload.newDescription;
             return {
                 ...state,
+                loading: false,
                 categories: state.categories.filter(category => category !== null)
             };
         }
@@ -52,6 +64,22 @@ function categoriesReducer(state = initialState, {type, payload}) {
                 ...state,
                 loading: false,
                 categories: state.categories.filter(category => category.id !== payload.id)
+            }
+        }
+        case FETCH_ADD_CATEGORIES_TO_FOLDER : {
+            console.log('concat',payload.category)
+            return {
+                ...state,
+                loading: false,
+                patientCategories: state.patientCategories.concat(payload.category)
+            }
+        }
+        case FETCH_DELETE_CATEGORY_TO_FOLDER: {
+            console.log('delete',state.patientCategories, state.patientCategories.filter(category => category.id !== payload.id))
+            return {
+                ...state,
+                loading: false,
+                patientCategories: state.patientCategories.filter(category => category.id !== payload.id)
             }
         }
         default:

@@ -4,7 +4,6 @@ import './Checkbox.css';
 const Checkbox = (props) => {
     const { text, onChange, checked } = props
     const check = checked === null ? false : checked;
-    console.log(props)
     return (
         <div className='checkbox-component'>
             <p>{text}</p>

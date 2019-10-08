@@ -61,7 +61,7 @@ class Pictograms extends Component {
     // }
 
     render() {
-        const { pictograms, categories, loadingPictograms } = this.props;
+        const { pictograms, categories, loadingPictograms, patient } = this.props;
         const { add, edit } = this.state;
         const titleDivAddEdit = add ? 'Nuevo Pictograma: ' : (edit && 'Editar Pictograma : ')
         const listPictograms = pictograms &&  pictograms !== undefined? pictograms.map(pictogram => {

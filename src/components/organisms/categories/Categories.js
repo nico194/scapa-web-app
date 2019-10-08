@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getCategories, addCategory, deleteCategory, updateCategory } from '../../../redux/actions/categories'
+import { getCategories, addCategory, deleteCategory, updateCategory, unlinkCategory } from '../../../redux/actions/categories'
 import { getPictograms, getPictogramsByCategory } from '../../../redux/actions/pictograms';
 import Category from '../../molecules/category/Category';
 import Button from '../../atoms/button/Button';
@@ -24,7 +24,7 @@ class Categories extends Component {
     }
 
     componentDidMount(){
-        this.props.getCategories();
+        !this.props.patient && this.props.getCategories();
     }
 
     showAddCategory = () => {
@@ -61,13 +61,30 @@ class Categories extends Component {
         this.props.getPictogramsByCategory(idCategory)
     }
 
+    unlinkCategory = (idPatient, idCategory) => {
+        this.props.unlinkCategory(idPatient, idCategory)
+    }
+
     render() {
-        const { categories, loading, list } = this.props;
+        const { categories, loading, list, patient, patientCategories } = this.props;
         const { add, edit, newDescriptionCategory } = this.state;
-        const listCategories = categories &&  categories !== undefined? categories.map(category =>{
-            if(list) {
-                return <li key={category.id}><Category onClick={() => this.getPictogramsByCategory(category.id)} description={category.description} /></li>
+        let listCategories = [];
+        if(list) {
+            if(patient) {
+                listCategories = patientCategories && patientCategories !== undefined ? patientCategories.map( category =>{
+                    return <li key={category.id}><Category onClick={() => this.unlinkCategory(patient.id, category.id)} description={category.description} /></li>
+                })
+                :
+                console.log('error categories patient')
             } else {
+                listCategories = categories &&  categories !== undefined ? categories.map(category =>{
+                    return <li key={category.id}><Category onClick={() => this.getPictogramsByCategory(category.id)} description={category.description} /></li>
+                })
+                :
+                console.log('error categories list')
+            }
+        } else {
+            listCategories = categories &&  categories !== undefined ? categories.map(category =>{
                 return (
                     <tr key={category.id}>
                         <td>{category.description}</td>
@@ -75,15 +92,18 @@ class Categories extends Component {
                         <td><Button text="Editar" onClick={() => this.showEditCategory(category)}/></td>
                     </tr>
                 )
-            }
-        }) : ''
+            })
+            :
+            console.log('error categories rows')
+        }
+
         return (
             <div className='categories-component'>
                 {list ?
                     <div className='categories-list'>
-                        <p>Categorias</p>
+                        <p className='title'>Categorias</p>
                         <ul className='list'>
-                            <li ><Category onClick={this.getPictograms} description='Todos' /></li>
+                            {!patient && <li ><Category onClick={this.getPictograms} description='Todos' /></li>}
                             {listCategories}
                         </ul>
                     </div>
@@ -130,6 +150,7 @@ const mapStateToProps = state => {
     return {
         loading: state.categories.loading,
         categories: state.categories.categories,
+        patientCategories: state.categories.patientCategories,
         err: state.categories.err
     }
 }
@@ -142,6 +163,7 @@ const mapDispatchToProps = dispatch => {
         updateCategory: (id, newDescription) => dispatch(updateCategory(id, newDescription)),
         getPictograms: () => dispatch(getPictograms()),
         getPictogramsByCategory: idCategory => dispatch(getPictogramsByCategory(idCategory)),
+        unlinkCategory: (idPatient, idCategory) => dispatch(unlinkCategory(idPatient, idCategory))
     }
 }
 

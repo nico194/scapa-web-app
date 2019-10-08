@@ -4,7 +4,7 @@
     flex-wrap: wrap;
 }
 
-.categories-component .categories-list p {
+.categories-component .categories-list .title {
     color: blue;
     font-size: 25px;
     font-weight: 700;

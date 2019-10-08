@@ -21,7 +21,6 @@ export const getPatientById = (id) => {
         })
         .then( response => response.json())
         .then( patient => {
-            console.log('Patient: ', patient)
             dispatch({ type: FETCH_PATIENT_SUCCESS, payload: {patient: patient[0]}})}
         )
         .catch( err => dispatch({ type: FETCH_PATIENTS_ERROR, payload: {err}}));

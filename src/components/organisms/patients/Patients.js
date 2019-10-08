@@ -66,7 +66,7 @@ class Patients extends Component {
                     )                        
                 }
                 {redirect &&
-                    <Redirect to={`/patients/${this.state.id}`} />
+                    <Redirect to={`/patients/${id}`} />
                 }
             </div>
         )

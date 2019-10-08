@@ -1,9 +1,12 @@
 import { FETCH_CATEGORIES_PENDING,
          FETCH_CATEGORIES_ERROR,
          FETCH_CATEGORIES_SUCCESS, 
+         FETCH_PATIENT_CATEGORIES_SUCCESS,
          FETCH_ADD_CATEGORY_SUCCESS,
          FETCH_UPDATE_CATEGORY_SUCCESS,
          FETCH_DELETE_CATEGORY_SUCCESS,
+         FETCH_ADD_CATEGORIES_TO_FOLDER,
+         FETCH_DELETE_CATEGORY_TO_FOLDER
        } from '../constants/categories';
 import config from '../../config';
 
@@ -25,7 +28,7 @@ export const getCategoriesByPatient = id => {
         fetch(`${config.server}/categories/folder/${id}`)
         .then(res => res.json())
         .then(categories => {
-            return dispatch({ type: FETCH_CATEGORIES_SUCCESS, payload: {categories}})
+            return dispatch({ type: FETCH_PATIENT_CATEGORIES_SUCCESS, payload: {categories}})
         })
         .catch( err => dispatch({ type: FETCH_CATEGORIES_ERROR, payload: {err}}))
     }
@@ -71,6 +74,44 @@ export const updateCategory = (id, newDescription) => {
         })
         .then(res => res.json())
         .then(data => data.update === 'success' ? dispatch({ type: FETCH_UPDATE_CATEGORY_SUCCESS, payload: { id, newDescription }}) : 'error')
+        .catch(err => dispatch({type: FETCH_CATEGORIES_ERROR, payload: {err}}));
+    }
+}
+
+export const addCategoriesToFolder = (id, categories) => {
+    return dispatch => {
+        dispatch({type: FETCH_CATEGORIES_PENDING });
+        fetch(`${config.server}/categories-folder/${id}`,{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({categories})
+        })
+        .then( res => res.json())
+        .then( data => {
+            data && 
+            console.log('data.categories', data.categories)
+            data.categories.forEach( category => {
+                console.log('category', category)
+                dispatch({ type: FETCH_ADD_CATEGORIES_TO_FOLDER, payload: {category}})
+            })
+        })
+        .catch(err => dispatch({type: FETCH_CATEGORIES_ERROR, payload: {err}}));
+    }
+}
+
+export const unlinkCategory = (idPatient, idCategory) =>{
+    return dispatch => {
+        dispatch({type: FETCH_CATEGORIES_PENDING });
+        fetch(`${config.server}/categories-folder/${idPatient}/${idCategory}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then( res => res.json())
+        .then( data => data && dispatch({ type: FETCH_DELETE_CATEGORY_TO_FOLDER, payload: {id: idCategory}}))
         .catch(err => dispatch({type: FETCH_CATEGORIES_ERROR, payload: {err}}));
     }
 }
