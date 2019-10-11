@@ -4,6 +4,8 @@ import { FETCH_PICTOGRAMS_PENDING,
          FETCH_ADD_PICTOGRAM_SUCCESS,
          FETCH_UPDATE_PICTOGRAM_SUCCESS,
          FETCH_DELETE_PICTOGRAM_SUCCESS,
+         SELECT_PICTOGRAM_TO_PHRASE,
+         UNSELECT_PICTOGRAM_TO_PHRASE,
        } from '../constants/pictograms';
 import config from '../../config';
 
@@ -73,5 +75,17 @@ export const updatePictogram = (id, newDescription) => {
         .then(res => res.json())
         .then(data => data.update === 'success' ? dispatch({ type: FETCH_UPDATE_PICTOGRAM_SUCCESS, payload: {id, newDescription}}) : 'error')
         .catch(err => dispatch({type: FETCH_PICTOGRAMS_ERROR, payload: {err}}));
+    }
+}
+
+export const selectPictogramToPhrase = pictogram => {
+    return dispatch => {
+        dispatch({ type: SELECT_PICTOGRAM_TO_PHRASE, payload: {pictogram} })
+    }
+}
+
+export const unselectPictogramToPhrase = pictogram => {
+    return dispatch => {
+        dispatch({ type: UNSELECT_PICTOGRAM_TO_PHRASE, payload: {pictogram} })
     }
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getPictograms, addPictogram, deletePictogram, updatePictogram } from '../../../redux/actions/pictograms'
+import { getPictograms, addPictogram, deletePictogram, updatePictogram, selectPictogramToPhrase } from '../../../redux/actions/pictograms'
 import { getCategories } from '../../../redux/actions/categories'
 import Pictogram from '../../molecules/pictogram/Pictogram';
 import Button from '../../atoms/button/Button';
@@ -19,7 +19,6 @@ class Pictograms extends Component {
             idCategory: 0,
             description: '',
             image: null,
-
         }
 
         this.onChangeField = this.onChangeField.bind();
@@ -60,18 +59,25 @@ class Pictograms extends Component {
     //     this.props.updatePictogram(this.state.idCategory, this.state.newDescriptionCategory);
     // }
 
+    selectPictogram = select => {
+        const { pictogramsSelected } = this.props;
+        const exits = pictogramsSelected.findIndex(pictogram => pictogram.id === select.id);
+        exits === -1 ? pictogramsSelected.push(select) : pictogramsSelected.splice(exits, 1);
+    }
+
     render() {
-        const { pictograms, categories, loadingPictograms, patient } = this.props;
+        const { pictograms, categories, loadingPictograms, routines } = this.props;
         const { add, edit } = this.state;
         const titleDivAddEdit = add ? 'Nuevo Pictograma: ' : (edit && 'Editar Pictograma : ')
         const listPictograms = pictograms &&  pictograms !== undefined? pictograms.map(pictogram => {
             return (
                 <div key={pictogram.id} className="pictogram">
-                    <Pictogram image={pictogram.image} description={pictogram.description} />
-                    <div className='buttons'>
+                    <Pictogram image={pictogram.image} description={pictogram.description} onClick={ routines ? () => this.selectPictogram(pictogram) : () => {} } />
+                    {!routines &&
+                        <div className='buttons'>
                         <Button text='Eliminar' onClick={() => this.deletePictogram(pictogram.id)} />
                         {/* <Button text='Editar' onClick={() => this.deletePictogram(pictogram)} /> */}
-                    </div>
+                    </div>}
                 </div>
             )
         }) : 'error'
@@ -93,7 +99,7 @@ class Pictograms extends Component {
                         )                        
                     }
                     
-                    <Button className='primary' text='Agregar Pictograma' onClick={this.showAddPictogram}/>
+                    {!routines && <Button className='primary' text='Agregar Pictograma' onClick={this.showAddPictogram}/>}
                 </div>
                 {(add || edit) &&
                     <div className='add-edit'>
@@ -114,6 +120,7 @@ const mapStateToProps = state => {
         loadingPictograms: state.pictograms.loading,
         categories: state.categories.categories,
         pictograms: state.pictograms.pictograms,
+        pictogramsSelected: this.pictograms.pictogramsSelected,
         err: state.pictograms.err
     }
 }
@@ -124,7 +131,8 @@ const mapDispatchToProps = dispatch => {
         getCategories: () => dispatch(getCategories()),
         addPictogram: pictogram => dispatch(addPictogram(pictogram)),
         deletePictogram: id => dispatch(deletePictogram(id)),
-        // updatePictogram: (id, newDescription) => dispatch(updatePictogram(id, newDescription))
+        // updatePictogram: (id, newDescription) => dispatch(updatePictogram(id, newDescription)),
+        selectPictogramToPhrase: pictogram => dispatch(selectPictogramToPhrase(pictogram))
     }
 }
 

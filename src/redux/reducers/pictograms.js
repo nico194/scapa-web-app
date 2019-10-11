@@ -11,6 +11,7 @@ const initialState = {
     edit: false,
     loading: false,
     pictograms: [],
+    pictogramsSelected: [],
     err: null
 }
 

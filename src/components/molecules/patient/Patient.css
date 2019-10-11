@@ -23,3 +23,7 @@
 .patient-component .categories-routines-patient .buttons button {
     margin-right: 20px
 }
+
+.patient-component .categories-routines-patient .categories {
+    margin-top: 20px;
+}

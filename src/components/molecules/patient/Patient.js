@@ -13,7 +13,7 @@ class Patient extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            cat: false,
+            cat: true,
             rout: false,
             showModal: false,
             categoriesSelected: []
@@ -26,6 +26,14 @@ class Patient extends Component {
         const { id } = this.props;
         this.props.getPatientById(id);
         this.props.getCategoriesByPatient(id);
+    }
+
+    showPanelCategories = () => {
+        this.setState({ cat : true, rout: false });
+    }
+
+    showPanelRoutines = () => {
+        this.setState({ rout : true, cat: false });
     }
 
     changeVoiceAssistant = patient => {
@@ -47,15 +55,15 @@ class Patient extends Component {
 
     addCategoriesToFolder = () =>{
         this.props.addCategoriesToFolder(this.props.id, this.state.categoriesSelected);
-        this.setState({ showModal: false });
+        this.setState({ showModal: false, categoriesSelected: [] });
     }
 
     closeModal = () => {
-        this.setState({ showModal: false });
+        this.setState({ showModal: false, categoriesSelected: [] });
     }
 
     render() {
-        const { showModal } = this.state;
+        const { showModal, cat, rout } = this.state;
         const { patient, loading, loadingVoice, loadingCategories, categories, patientCategories } = this.props;
         const listCategories = categories.map(category => {
             return <li key={category.id}><input type='checkbox' onChange={() => this.selectCategory(category.id)}/>{category.description}</li>
@@ -89,19 +97,27 @@ class Patient extends Component {
                 }
                 <div className="categories-routines-patient">
                     <div className="buttons">
-                        <Button text='Categorias Asignadas' onClick={this.getCategoriesByPatient} />
-                        <Button text='Rutinas Asignadas' onClick={()=>{}} />
+                        <Button text='Categorias Asignadas' onClick={this.showPanelCategories} />
+                        <Button text='Rutinas Asignadas' onClick={this.showPanelRoutines} />
                     </div>
-                    {patientCategories.length === 0 ?
-                        <p>No hay categorias asignadas</p>
-                        :
-                        showModal ? 
-                            <p>Asignando una categoria...</p>
-                            :
-                            <Categories list={true} patient={patient} />
+                    {cat &&
+                        <div className="categories">
+                            {patientCategories.length === 0 ?
+                                <p>No hay categorias asignadas</p>
+                                :
+                                showModal ? 
+                                    <p>Asignando una categoria...</p>
+                                    :
+                                    <Categories list={true} patient={patient} />
+                            }
+                            <Button text='Asignar categoria' onClick={this.showCategories} />
+                        </div>
                     }
-                    <Button text='Asignar categoria' onClick={this.showCategories} />
-                    
+                    {rout &&
+                        <div className="routines">
+                            <h3>Routines</h3>
+                        </div>
+                    }
                 </div>
             </div>
         )
