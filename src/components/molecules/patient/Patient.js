@@ -8,6 +8,7 @@ import Checkbox from '../../atoms/checkbox/Checkbox';
 import Button from '../../atoms/button/Button';
 import Modal from '../modal/Modal';
 import Categories from '../../organisms/categories/Categories';
+import Routines from '../../organisms/routines/Routines'
 
 class Patient extends Component {
     constructor(props) {
@@ -65,9 +66,25 @@ class Patient extends Component {
     render() {
         const { showModal, cat, rout } = this.state;
         const { patient, loading, loadingVoice, loadingCategories, categories, patientCategories } = this.props;
-        const listCategories = categories.map(category => {
-            return <li key={category.id}><input type='checkbox' onChange={() => this.selectCategory(category.id)}/>{category.description}</li>
+        
+        let band = true
+        const listCategories = [];
+        for(const category of categories) {
+            for(const categoryPatient of patientCategories) {
+                if(category.id === categoryPatient.id){
+                    band = false;
+                }
+            }
+            if(band) {
+                listCategories.push(category)
+            }
+            band = true
+        }
+
+        const categoriesPatientList = listCategories.map( patientCategory => {
+            return <li key={patientCategory.id}><input type='checkbox' onChange={() => this.selectCategory(patientCategory.id)}/>{patientCategory.description}</li>
         })
+
         return (
             <div className='patient-component'>
                 <Modal show={showModal} closeModal={this.closeModal} functionModal={this.addCategoriesToFolder}>
@@ -76,7 +93,7 @@ class Patient extends Component {
                         {loadingCategories ?
                             <p>Cargando...</p>
                             :
-                            listCategories
+                            categoriesPatientList
                         }
                     </ul>
                 </Modal>
@@ -115,7 +132,7 @@ class Patient extends Component {
                     }
                     {rout &&
                         <div className="routines">
-                            <h3>Routines</h3>
+                            <Routines />
                         </div>
                     }
                 </div>
@@ -125,7 +142,6 @@ class Patient extends Component {
 }
 
 const mapStateToProps = state => {
-    console.log('redux', state)
     return {
         patient: state.patients.patient,
         loading: state.patients.loading,

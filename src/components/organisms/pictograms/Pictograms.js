@@ -59,10 +59,8 @@ class Pictograms extends Component {
     //     this.props.updatePictogram(this.state.idCategory, this.state.newDescriptionCategory);
     // }
 
-    selectPictogram = select => {
-        const { pictogramsSelected } = this.props;
-        const exits = pictogramsSelected.findIndex(pictogram => pictogram.id === select.id);
-        exits === -1 ? pictogramsSelected.push(select) : pictogramsSelected.splice(exits, 1);
+    selectPictogram = pictogram => {
+        this.props.selectPictogramToPhrase(pictogram);
     }
 
     render() {
@@ -84,7 +82,7 @@ class Pictograms extends Component {
         
         return (
             <div className='pictograms-component'>
-                <div className='pictograms-list'>
+                <div className={!routines ? 'pictograms-list' : 'pictograms-list routines'}>
                     <p>Pictograms</p>
                     <Categories list={true} />
                     {loadingPictograms ?
@@ -120,7 +118,7 @@ const mapStateToProps = state => {
         loadingPictograms: state.pictograms.loading,
         categories: state.categories.categories,
         pictograms: state.pictograms.pictograms,
-        pictogramsSelected: this.pictograms.pictogramsSelected,
+        pictogramsSelected: state.pictograms.pictogramsSelected,
         err: state.pictograms.err
     }
 }

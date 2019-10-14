@@ -84,8 +84,8 @@ export const selectPictogramToPhrase = pictogram => {
     }
 }
 
-export const unselectPictogramToPhrase = pictogram => {
+export const unselectPictogramToPhrase = index => {
     return dispatch => {
-        dispatch({ type: UNSELECT_PICTOGRAM_TO_PHRASE, payload: {pictogram} })
+        dispatch({ type: UNSELECT_PICTOGRAM_TO_PHRASE, payload: {index} })
     }
 }

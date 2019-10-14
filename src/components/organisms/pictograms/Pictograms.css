@@ -7,6 +7,11 @@
     width: 70%
 }
 
+.pictograms-component .pictograms-list.routines {
+    float: inherit;
+    width: 100%
+}
+
 .pictograms-component .pictograms-list p {
     color: blue;
     font-size: 40px;
@@ -38,10 +43,6 @@
     margin-right: 30px;
 }
 
-.pictograms-component .pictograms-list .pictograms .pictogram img{
-    width: 200px;
-    height: 150px;
-}
 .pictograms-component .pictograms-list .pictograms .pictogram .buttons {
     display: flex;
     justify-content: center;

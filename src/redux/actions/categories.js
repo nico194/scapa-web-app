@@ -91,7 +91,6 @@ export const addCategoriesToFolder = (id, categories) => {
         .then( res => res.json())
         .then( data => {
             data && 
-            console.log('data.categories', data.categories)
             data.categories.forEach( category => {
                 console.log('category', category)
                 dispatch({ type: FETCH_ADD_CATEGORIES_TO_FOLDER, payload: {category}})

@@ -4,6 +4,8 @@ import { FETCH_PICTOGRAMS_PENDING,
          FETCH_ADD_PICTOGRAM_SUCCESS,
          FETCH_UPDATE_PICTOGRAM_SUCCESS,
          FETCH_DELETE_PICTOGRAM_SUCCESS,
+         SELECT_PICTOGRAM_TO_PHRASE,
+         UNSELECT_PICTOGRAM_TO_PHRASE
   } from '../constants/pictograms';
 
 const initialState = {
@@ -55,6 +57,19 @@ function pictogramsReducer(state = initialState, {type, payload}) {
                 ...state,
                 loading: false,
                 pictograms: state.pictograms.filter(pictogram => pictogram.id !== payload.id)
+            }
+        }
+        case SELECT_PICTOGRAM_TO_PHRASE: {
+            return {
+                ...state,
+                pictogramsSelected: state.pictogramsSelected.concat(payload.pictogram)
+            }
+        }
+        case UNSELECT_PICTOGRAM_TO_PHRASE: {
+            
+            return {
+                ...state,
+                pictogramsSelected: state.pictogramsSelected.filter((pictogram, index) => index !== payload.index)
             }
         }
         default:
