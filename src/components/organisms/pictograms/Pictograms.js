@@ -7,7 +7,7 @@ import Button from '../../atoms/button/Button';
 import TextField from '../../atoms/textfield/TextField';
 import Uploadfile from '../../atoms/uploadFile/Uploadfile';
 import Dropdown from '../../atoms/dropdown/Dropdown';
-import './Pictograms.css';
+import './Pictograms.scss';
 import Categories from '../categories/Categories';
 
 class Pictograms extends Component {

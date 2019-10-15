@@ -1,6 +1,6 @@
 import React from 'react';
 import config from '../../../config';
-import './Pictogram.css';
+import './Pictogram.scss';
 
 const Pictogram = (props) => {
     const {image , description, onClick} = props;

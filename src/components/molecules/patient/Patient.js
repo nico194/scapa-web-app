@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import config from '../../../config';
 import { getCategoriesByPatient, getCategories, addCategoriesToFolder } from '../../../redux/actions/categories';
 import { getPatientById, changeVoiceAssistant } from '../../../redux/actions/patients';
-import './Patient.css';
+import './Patient.scss';
 import Checkbox from '../../atoms/checkbox/Checkbox';
 import Button from '../../atoms/button/Button';
 import Modal from '../modal/Modal';

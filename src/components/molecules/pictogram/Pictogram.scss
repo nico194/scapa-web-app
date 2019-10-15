@@ -1,0 +1,13 @@
+.pictogram-component {
+    display: flex;
+    flex-direction: column;
+  
+    img {
+      width: 200px;
+      height: 150px;
+    }
+  
+    span {
+      text-align: center;
+    }
+}

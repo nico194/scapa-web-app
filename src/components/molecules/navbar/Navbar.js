@@ -4,7 +4,7 @@ import { logOut } from '../../../redux/actions/tutors'
 import Link from '../../atoms/link/Link';
 import Logo from '../../../public/logo/logo-desktop.jpg';
 import Portada from '../../../public/portada/portada-desktop.jpg'
-import './Navbar.css';
+import './Navbar.scss';
 
 class Navbar extends Component {
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Navbar from '../../components/molecules/navbar/Navbar';
 import config from '../../config';
 import Categories from '../../components/organisms/categories/Categories';
-import './CategoriesPage.css';
+import './CategoriesPage.scss';
 
 export default class CategoriesPage extends Component {
     render() {

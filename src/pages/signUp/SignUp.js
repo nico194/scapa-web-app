@@ -5,7 +5,7 @@ import { signUp } from '../../redux/actions/tutors'
 import TextField from '../../components/atoms/textfield/TextField';
 import Button from '../../components/atoms/button/Button';
 import Date from '../../components/atoms/date/Date';
-import './SignUp.css';
+import './SignUp.scss';
 import Uploadfile from '../../components/atoms/uploadFile/Uploadfile';
 
 class SignUp extends Component {

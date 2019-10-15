@@ -1,5 +1,5 @@
 import React from 'react';
-import './Checkbox.css';
+import './Checkbox.scss';
 
 const Checkbox = (props) => {
     const { text, onChange, checked } = props

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Button from '../../atoms/button/Button';
 import { getPatientsByTutor, unlinkPatient } from '../../../redux/actions/patients';
 import config from '../../../config';
-import './Pacients.css';
+import './Patients.scss';
 
 class Patients extends Component {
     constructor(props) {

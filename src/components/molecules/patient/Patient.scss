@@ -1,0 +1,29 @@
+.patient-component {
+    margin: 70px 50px;
+    display: flex;
+    flex-direction: row;
+  
+    .patient {
+        width: 40%;
+    }
+  
+    .categories-routines-patient {
+        display: flex;
+        flex-direction: column;
+        width: 60%;
+  
+        .buttons {
+            display: flex;
+            flex-direction: row;
+            width: 60%;
+    
+            button {
+            margin-right: 20px;
+            }
+        }
+    
+        .categories {
+            margin-top: 20px;
+        }
+    }
+}

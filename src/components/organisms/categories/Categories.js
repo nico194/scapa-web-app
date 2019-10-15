@@ -5,7 +5,7 @@ import { getPictograms, getPictogramsByCategory } from '../../../redux/actions/p
 import Category from '../../molecules/category/Category';
 import Button from '../../atoms/button/Button';
 import TextField from '../../atoms/textfield/TextField';
-import './Categories.css';
+import './Categories.scss';
 
 class Categories extends Component {
     constructor(props){

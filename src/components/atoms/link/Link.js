@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './Links.css';
+import './Links.scss';
 
 const link = (props) => {
     const {text, goTo} = props;

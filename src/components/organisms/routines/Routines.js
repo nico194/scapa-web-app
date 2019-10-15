@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Pictograms from '../pictograms/Pictograms';
 import Pictogram from '../../molecules/pictogram/Pictogram';
 import { unselectPictogramToPhrase } from '../../../redux/actions/pictograms';
-import './Routines.css';
+import './Routines.scss';
 
 class Routines extends Component {
 

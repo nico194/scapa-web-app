@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import './SignIn.css';
+import './SignIn.scss';
 import { signIn } from '../../redux/actions/tutors'
 import TextField from '../../components/atoms/textfield/TextField';
 import Button from '../../components/atoms/button/Button';

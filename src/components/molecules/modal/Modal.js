@@ -1,6 +1,6 @@
 import React from 'react'
 import Button from '../../atoms/button/Button';
-import './Modal.css'
+import './Modal.scss'
 
 const Modal = (props) => {
     const { functionModal,closeModal, show, children } = props
