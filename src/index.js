@@ -13,6 +13,7 @@ import PictogramsPage from './pages/pictograms/PictogramsPage';
 import PatientsPage from './pages/patients/PatientsPage';
 import PatientPage from './pages/patient/PatientPage';
 import RoutinesPage from './pages/routines/RoutinesPage';
+import PendingRequestPage from './pages/pendingRequest/PendingRequestPage';
 
 const App = () => {
     return(
@@ -27,6 +28,7 @@ const App = () => {
                     <Route path="/patients/:id" component={PatientPage} />
                     <Route path="/patients" component={PatientsPage} />
                     <Route path="/routines" component={RoutinesPage} />
+                    <Route path="/pending-request" component={PendingRequestPage} />
                 </Switch>
             </BrowserRouter>
         </Provider>
