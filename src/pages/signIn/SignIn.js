@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './SignIn.scss';
-import { signIn } from '../../redux/actions/tutors'
+import { signIn } from '../../redux/actions/users'
 import TextField from '../../components/atoms/textfield/TextField';
 import Button from '../../components/atoms/button/Button';
 import Link from '../../components/atoms/link/Link';
@@ -27,8 +27,8 @@ class SignIn extends Component {
     }
 
     render() {
-        const { loading, signInAdmin, signInTutor } = this.props;
-
+        const { loading, user } = this.props;
+        const signIn = user.type_user;
         return (
             <div className="sign-in-page">
                 <div className="wrapper-sign-in">
@@ -43,11 +43,10 @@ class SignIn extends Component {
                     {loading && 
                         <h2>Cargando...</h2>
                     }
-                    {signInAdmin &&
+                    {signIn === 'admin' ?
                         <Redirect to='/categories' />
-                    }
-                    {signInTutor &&
-                        <Redirect to='/patients' />
+                        :
+                        signIn === 'tutor' && <Redirect to='/patients' />
                     }
                 </div>
             </div>
@@ -57,9 +56,8 @@ class SignIn extends Component {
 
 const mapStateToProps = state => {
     return {
-        signInAdmin: state.tutors.signInAdmin,
-        signInTutor: state.tutors.signInTutor,
-        loading: state.tutors.loading,
+        user: state.users.user,
+        loading: state.users.loading,
     }
 }
 

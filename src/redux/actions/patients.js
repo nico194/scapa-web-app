@@ -13,7 +13,7 @@ import config from '../../config';
 export const getPatientById = (id) => {
     return dispatch => {
         dispatch({ type: FETCH_PATIENTS_PENDING });
-        fetch(`${config.server}/patients/${id}`, {
+        fetch(`${config.server}/users/${id}`, {
             method: 'GET',
             header: {
                 'Content-Type': 'application/json'
@@ -30,7 +30,7 @@ export const getPatientById = (id) => {
 export const getPatientsByTutor = (id) => {
     return dispatch => {
         dispatch({ type: FETCH_PATIENTS_PENDING });
-        fetch(`${config.server}/patients/tutor/${id}`, {
+        fetch(`${config.server}/users/tutor/${id}`, {
             method: 'GET',
             header: {
                 'Content-Type': 'application/json'
@@ -45,7 +45,7 @@ export const getPatientsByTutor = (id) => {
 export const unlinkPatient = (id) => {
     return dispatch => {
         dispatch({ type: FETCH_PATIENTS_PENDING });
-        fetch(`${config.server}/patients/tutor/${id}`, {
+        fetch(`${config.server}/users/tutor/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -64,7 +64,7 @@ export const unlinkPatient = (id) => {
 export const changeVoiceAssistant = patient => {
     return dispatch => {
         dispatch({type:CHANGE_VOICE_ASSISTANT_PENDING})
-        fetch(`${config.server}/patients/voice/${patient.id}`, {
+        fetch(`${config.server}/users/voice/${patient.id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'

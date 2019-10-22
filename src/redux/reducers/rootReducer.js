@@ -1,13 +1,13 @@
 import { combineReducers } from 'redux';
 import categoriesReducer from './categories';
 import pictogramsReducer from './pictograms';
-import tutorsReducer from './tutors';
+import UsersReducer from './users';
 import patientsReducer from './patients';
 
 const rootReducer = combineReducers({
     categories: categoriesReducer,
     pictograms: pictogramsReducer,
-    tutors: tutorsReducer,
+    users: UsersReducer,
     patients: patientsReducer
 });
 

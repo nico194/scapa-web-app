@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { signUp } from '../../redux/actions/tutors'
+import { signUp } from '../../redux/actions/users'
 import TextField from '../../components/atoms/textfield/TextField';
 import Button from '../../components/atoms/button/Button';
 import Date from '../../components/atoms/date/Date';
@@ -17,7 +17,8 @@ class SignUp extends Component {
             password: '',
             name: '',
             birthday: '',
-            image: null
+            image: null,
+            typeUser: 'tutor'
         }
         this.onChangeField = this.onChangeField.bind();
         this.onClickSignUp = this.onClickSignUp.bind();
@@ -32,7 +33,9 @@ class SignUp extends Component {
     }
 
     render() {
-        const { signUpTutor, loading } = this.props;
+        const { loading, user } = this.props;
+        const signIn = user.typeUser;
+
         return (
             <div className="sign-up-component">
                 <div className="wrapper-sign-up">
@@ -51,8 +54,10 @@ class SignUp extends Component {
                     {loading && 
                         <h2>Cargando...</h2>
                     }
-                    {signUpTutor &&
-                        <Redirect to='/patients' />
+                    {signIn === 'admin' ?
+                        <Redirect to='/categories' />
+                        :
+                        signIn === 'tutor' && <Redirect to='/patients' />
                     }
                 </div>
             </div>
@@ -61,9 +66,10 @@ class SignUp extends Component {
 }
 
 const mapStateToProps = state => {
+    console.log('signup', state)
     return {
-        signUpTutor: state.tutors.signUpTutor,
-        loading: state.tutors.loading,
+        user: state.users.user,
+        loading: state.users.loading,
     }
 }
 

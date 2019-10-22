@@ -17,7 +17,7 @@ class Patients extends Component {
     }
 
     componentDidMount() {
-        this.props.getPatientsByTutor(this.props.tutor.id)
+        this.props.getPatientsByTutor(this.props.user.id)
     }
 
     unlinkPatient = (id) => {
@@ -31,7 +31,7 @@ class Patients extends Component {
     render() {
         const { redirect, id }= this.state
         const { patients, loading } = this.props
-        const listPatients = patients.map( patient => {
+        const listPatients = patients !== undefined ? patients.map( patient => {
             return (
                 <tr key={patient.id}>
                     <td>Image</td>
@@ -41,7 +41,7 @@ class Patients extends Component {
                     <td><Button text='Desvincular' onClick={() => this.unlinkPatient(patient.id)}/></td>
                 </tr>
             )
-        })
+        }) : <h3>No hay Pacientes vinculados</h3>
         return (
             <div className='patients-component'>
                 <p>Pacientes</p>
@@ -77,7 +77,7 @@ const mapStateToProps = state => ({
     patients: state.patients.patients,
     patient: state.patients.patient,
     loading: state.patients.loading,
-    tutor: state.tutors.tutor
+    user: state.users.user
 })
 
 const mapDispatchToProps = dispatch => {

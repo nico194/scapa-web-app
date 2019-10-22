@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { logOut } from '../../../redux/actions/tutors'
+import { logOut } from '../../../redux/actions/users'
 import Link from '../../atoms/link/Link';
 import Logo from '../../../public/logo/logo-desktop.jpg';
 import Portada from '../../../public/portada/portada-desktop.jpg'
@@ -13,9 +13,9 @@ class Navbar extends Component {
     }
 
     render() {
-        const { leftLinks, rightLinks, admin = true, tutor } = this.props;
+        const { leftLinks, rightLinks, user } = this.props;
 
-        const nameTutor = Object.keys(tutor).length > 0 ? tutor.name : JSON.parse(localStorage.getItem('tutor')).name
+        const nameTutor = user !== {} ? user.name : JSON.parse(localStorage.getItem('user')).name
 
         const linkLeft = leftLinks.map((link, index) => {
             return <li key={index}><Link goTo={link.goTo} text={link.text} /></li>
@@ -26,7 +26,7 @@ class Navbar extends Component {
 
         return (
             <div className='navbar-component'>
-                { admin &&
+                { user.typeUser !== 'admin' &&
                     <img className='portada' src={Portada} alt='portada'/>
                 }
                 <div className="nav">
@@ -52,7 +52,7 @@ class Navbar extends Component {
 
 const mapStateToProps = state => {
     return { 
-        tutor: state.tutors.tutor
+        user: state.users.user
     }
 }
 
