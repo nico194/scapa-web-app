@@ -1,5 +1,5 @@
 const config = {
-    server: 'https://scapa-backend.herokuapp.com/', //'http://localhost:8000',
+    server: 'https://scapa-backend.herokuapp.com',
     homeNavbarLeft: [
         {
             goTo: '/',
