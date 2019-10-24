@@ -28,6 +28,7 @@ class SignIn extends Component {
 
     render() {
         const { loading, user } = this.props;
+        console.log('user',user);
         const signIn = user.type_user;
         return (
             <div className="sign-in-page">

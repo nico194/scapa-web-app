@@ -40,7 +40,7 @@ class Categories extends Component {
     }
     
     addCategory = () => {
-        this.props.addCategory(this.state.newDescriptionCategory);
+        this.state.newDescriptionCategory !== '' && this.props.addCategory(this.state.newDescriptionCategory);
         this.setState({ add: false });
     }
 
