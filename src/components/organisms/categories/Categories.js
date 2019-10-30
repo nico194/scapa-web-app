@@ -32,7 +32,15 @@ class Categories extends Component {
     }
 
     showEditCategory = (category) => {
-        this.setState({edit: true, idCategory: category.id , newDescriptionCategory: category.description, add: false});
+        this.setState({edit: !this.state.edit, idCategory: category.id , newDescriptionCategory: category.description, add: false});
+    }
+
+    hideAddCategory = () =>{ 
+        this.setState({add: false});
+    }
+
+    hideEditCategory = () => {
+        this.setState({edit: false});
     }
 
     onChangeCategoryName = (e) => {
@@ -58,7 +66,7 @@ class Categories extends Component {
     }
 
     getPictogramsByCategory = (idCategory) => {
-        this.props.getPictogramsByCategory(idCategory)
+        this.props.getPictogramsByCategory(idCategory);
     }
 
     unlinkCategory = (idPatient, idCategory) => {
@@ -130,13 +138,15 @@ class Categories extends Component {
                                 <h1>Add Category:</h1>
                                 <TextField id='txtAdd' label='Nombre de la categoria:  ' onChange={this.onChangeCategoryName} />
                                 <Button text='Agregar' onClick={this.addCategory} />
+                                <Button text='Cancelar' onClick={this.hideAddCategory } />
                             </div>
                         }
                         {edit &&
                             <div className='category'>
-                                <h1>Edit Category: {newDescriptionCategory.description}</h1>
+                                <h1>Edit Category: {newDescriptionCategory}</h1>
                                 <TextField id='txtEdit' label='Nuevo nombre de la categoria:  ' onChange={this.onChangeCategoryName}/>
                                 <Button text='Modificar' onClick={this.updateCategory} />
+                                <Button text='Cancelar' onClick={this.hideEditCategory } />
                             </div>
                         }
                     </div>

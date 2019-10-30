@@ -8,12 +8,11 @@ import {
 
 
 const regExp = new RegExp(`^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?$`);
-const isBase64 = regExp.test(localStorage.getItem('user'));
-localStorage.setItem('user', btoa(JSON.stringify({})))
+const isBase64 = localStorage.getItem('user') !== null ? regExp.test(localStorage.getItem('user')) : false;
 
 const initialState = {
     loading: false,
-    user: isBase64 && JSON.parse(atob(localStorage.getItem('user'))),
+    user: isBase64 ? JSON.parse(atob(localStorage.getItem('user'))): {},
     err: null
 }
 

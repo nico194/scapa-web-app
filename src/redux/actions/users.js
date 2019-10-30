@@ -29,13 +29,15 @@ export const signIn = (user) => {
 
 export const signUp = (user) => {
     return dispatch => {
+        console.log('User: ', user);
+        const typeUser = user.typeUser !== '' ? user.typeUser : 'tutor';
         const formData = new FormData();
         formData.append('userImage', user.image);
         formData.append('name', user.name);
         formData.append('birthday', user.birthday);
         formData.append('email', user.email);
         formData.append('password', user.password);
-        formData.append('type_user', user.typeUser);
+        formData.append('type_user', typeUser);
         
         dispatch({ type: FETCH_USERS_PENDING});
         fetch(`${config.server}/users/signup`, {
@@ -45,8 +47,11 @@ export const signUp = (user) => {
         .then( response => response.json())
         .then( data => {
             if(data){
-                user.id = data.id
-                user.image = data.path
+                console.log('data', data);
+                user.id = data.id;
+                user.image = data.path;
+                user.typeUser = typeUser;
+                console.log('User Complete: ', user);
                 dispatch({ type: USER_SIGNUP_SUCCESS, payload: {user}})
             }            
         })

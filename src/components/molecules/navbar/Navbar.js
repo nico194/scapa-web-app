@@ -26,7 +26,7 @@ class Navbar extends Component {
 
         return (
             <div className='navbar-component'>
-                { user.typeUser !== 'admin' &&
+                { user.type_user !== 'admin' &&
                     <img className='portada' src={Portada} alt='portada'/>
                 }
                 <div className="nav">

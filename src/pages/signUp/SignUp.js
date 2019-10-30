@@ -18,7 +18,7 @@ class SignUp extends Component {
             name: '',
             birthday: '',
             image: null,
-            typeUser: 'tutor'
+            typeUser: ''
         }
         this.onChangeField = this.onChangeField.bind();
         this.onClickSignUp = this.onClickSignUp.bind();
@@ -66,7 +66,6 @@ class SignUp extends Component {
 }
 
 const mapStateToProps = state => {
-    console.log('signup', state)
     return {
         user: state.users.user,
         loading: state.users.loading,

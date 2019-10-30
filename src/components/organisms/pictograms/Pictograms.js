@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getPictograms, addPictogram, deletePictogram, updatePictogram, selectPictogramToPhrase } from '../../../redux/actions/pictograms'
+import { getPictograms, addPictogram, deletePictogram, updatePictogram, selectPictogramToPhrase, getPictogramsByCategory } from '../../../redux/actions/pictograms'
 import { getCategories } from '../../../redux/actions/categories'
 import Pictogram from '../../molecules/pictogram/Pictogram';
 import Button from '../../atoms/button/Button';
@@ -24,11 +24,11 @@ class Pictograms extends Component {
         this.onChangeField = this.onChangeField.bind();
         this.selectCategory = this.selectCategory.bind();
     }
-    
+
     componentDidMount(){
         this.props.getPictograms();
     }
-    
+
     showAddPictogram = () => {
         this.setState({add: !this.state.add, edit: false})
     }
@@ -49,6 +49,7 @@ class Pictograms extends Component {
         }
         this.props.addPictogram(pictogram);
         this.setState({ add: false });
+        this.props.getPictogramsByCategory(pictogram.idCategory);
     }
 
     deletePictogram = (id) => {
@@ -79,7 +80,6 @@ class Pictograms extends Component {
                 </div>
             )
         }) : 'error'
-        
         return (
             <div className='pictograms-component'>
                 <div className={!routines ? 'pictograms-list' : 'pictograms-list routines'}>
@@ -89,12 +89,14 @@ class Pictograms extends Component {
                         <h2>Cargando...</h2>
                         :
                         (pictograms.length === 0 ?
-                            <h3>No hay pictogramas</h3>
+                            <div className="pictograms">
+                                <h3>No hay pictogramas</h3>
+                            </div>
                             :
                             <div className="pictograms">
                                 {listPictograms}
                             </div>
-                        )                        
+                        )
                     }
                     
                     {!routines && <Button className='primary' text='Agregar Pictograma' onClick={this.showAddPictogram}/>}
@@ -128,6 +130,7 @@ const mapDispatchToProps = dispatch => {
         getPictograms: () => dispatch(getPictograms()),
         getCategories: () => dispatch(getCategories()),
         addPictogram: pictogram => dispatch(addPictogram(pictogram)),
+        getPictogramsByCategory: id => dispatch(getPictogramsByCategory(id)),
         deletePictogram: id => dispatch(deletePictogram(id)),
         // updatePictogram: (id, newDescription) => dispatch(updatePictogram(id, newDescription)),
         selectPictogramToPhrase: pictogram => dispatch(selectPictogramToPhrase(pictogram))
