@@ -132,7 +132,7 @@ class Patient extends Component {
                     }
                     {rout &&
                         <div className="routines">
-                            <Routines />
+                            <Routines idPatient={patient.id}/>
                         </div>
                     }
                 </div>
