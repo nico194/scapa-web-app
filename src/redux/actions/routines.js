@@ -8,13 +8,18 @@ import config from '../../config'
 
 export const sendRoutine = (idPatient, pictograms) => {
     return dispatch => {
+        const body = {
+            pictograms,
+            type: 'routines'
+        }
+        console.log('obj: ', body);
         dispatch({ type: FETCH_ROUTINES_PENDING });
         fetch(`${config.server}/phrases/${idPatient}`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application-json'
+                'Content-Type': 'application/json'
             },
-            body: JSON.stringify({pictograms})
+            body: JSON.stringify(body)
         })
         .then( res => res.json())
         .then( data => data && dispatch({ type: SEND_ROUTINE }))

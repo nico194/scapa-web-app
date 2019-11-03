@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Pictograms from '../pictograms/Pictograms';
 import Pictogram from '../../molecules/pictogram/Pictogram';
-import Modal from '../../molecules/modal'
+import Modal from '../../molecules/modal/Modal'
 import { unselectPictogramToPhrase } from '../../../redux/actions/pictograms';
-import { sendRoutine } from '../../../redux/actions/routines'
+import { sendRoutine, acceptRoutine } from '../../../redux/actions/routines'
 import './Routines.scss';
 import Button from '../../atoms/button/Button';
 
@@ -22,6 +22,10 @@ class Routines extends Component {
         this.props.sendRoutine(this.props.idPatient, pictograms);
     }
 
+    acceptRoutine = () => {
+        this.props.acceptRoutine();
+    }
+
     render() {
         const { pictogramsSelected, send } = this.props;
         const phrase = pictogramsSelected && pictogramsSelected !== undefined ? pictogramsSelected.map( (pictogram, index) => {
@@ -34,9 +38,8 @@ class Routines extends Component {
         return (
             <div className='routines-component'>
                 {send &&
-                    <Modal>
+                    <Modal show={send} functionModal={this.acceptRoutine}>
                         <h3>Se envio la rutina con exito!</h3>
-                        <Button text='Aceptar' onClick={this.acceptRoutine} />
                     </Modal>
                 }
                 <p>Rutinas</p>
@@ -64,6 +67,7 @@ const mapDispatchToPros = dispatch => {
     return {
         unselectPictogramToPhrase: index => dispatch(unselectPictogramToPhrase(index)),
         sendRoutine: (idPatient, pictograms) =>dispatch(sendRoutine(idPatient, pictograms)),
+        acceptRoutine: () => dispatch(acceptRoutine()),
     }
 }
 
